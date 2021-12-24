@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    Welcome To My World
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="ykangli" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">YKANGLI</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/tech/">tech</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/ykangli" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/e4afd8b644160bcf8fbadce95cbd962.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >刷题 12/14</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="剑指offer-03-数组中重复的数字"><a href="#剑指offer-03-数组中重复的数字" class="headerlink" title="剑指offer 03. 数组中重复的数字"></a>剑指offer 03. 数组中重复的数字</h2><p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20211224095946844.png" alt="image-20211224095946844"></p>
+<h3 id="一-遍历暴力解法-利用HashSet"><a href="#一-遍历暴力解法-利用HashSet" class="headerlink" title="一.遍历暴力解法 ( 利用HashSet )"></a>一.遍历暴力解法 ( 利用HashSet )</h3><p>利用HashSet, 每遍历一个就去Set集合中查询，如果有就说明前面已经存在；若没有将其存入Set。 </p>
+<p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(set.contains(nums[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> nums[i];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                set.add(nums[i]);</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>notes</strong>： 牢记<code>HashSet</code>的两个函数</p>
+<ol>
+<li><strong>add( )</strong>                  如果Set集合中存在该元素，则返回 false</li>
+<li><strong>contains ( )</strong>         如果Set集合中存在该元素，则返回 false</li>
+</ol>
+<ul>
+<li><p><strong>时间复杂度 O(N)：</strong> 遍历数组使用 O(N) ，HashSet 添加与查找元素皆为 O(1)。</p>
+</li>
+<li><p><strong>空间复杂度 O(N)：</strong> HashSet 占用 O(N)  大小的额外空间。</p>
+</li>
+</ul>
+<h3 id="二-原地交换"><a href="#二-原地交换" class="headerlink" title="二. 原地交换"></a>二. 原地交换</h3><p>实际中，可能要求降低空间复杂度。那我们就不能新建 HashSet，利用Set集合的唯一性来实现。那我们就得想，有没有办法仅仅使用当前的数组 nums[ ]来模拟Set。</p>
+<p>我们仔细观察该题目，发现 ——-&gt;  <code>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内</code></p>
+<p>可遍历数组并通过交换操作，<strong>使元素与索引值 一 一对应</strong>（即 nums[i] = inums[i]=i ）。因而，就能通过索引映射对应的值，起到与Set等价的作用。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20211224104020538.png" alt="image-20211224104020538"></p>
+<p>遍历中，第一次遇到数字 xx 时，将其交换至索引 xx 处；而当第二次遇到数字 xx 时，一定有 nums[x] = xnums[x]=x ，此时即可得到一组重复数字。</p>
+<p><strong>算法步骤：</strong></p>
+<p>一、遍历数组 nums[ ]：</p>
+<pre><code> 1. 若 nums[i] == i， 说明元素与索引值对应，继续下一个位置。
+ 2. 若 nums[nums[i]] == nums[i]， 说明 索引nums[i]处和索引 i 处的元素值都是 nums[i]，找到重复的值，那么返回 nusm[i].
+ 3. 否则，交换 索引 i 处和 索引 nums[i] 处的元素值，也就是把 元素nums[i], 放到索引 nums[i]处。使得元素值与索引对应。
+</code></pre>
+<p>二、 遍历完成未找到，返回-1 （本题有重复元素，一定能找到）</p>
+<p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findRepeatNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; nums.length) &#123;</span><br><span class="line">            <span class="comment">//元素与索引值对应，继续下一个位置</span></span><br><span class="line">            <span class="keyword">if</span>(nums[i] == i) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//找到重复的值 </span></span><br><span class="line">            <span class="keyword">if</span>(nums[nums[i]] == nums[i]) &#123;</span><br><span class="line">                <span class="keyword">return</span> nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//交换元素位置，使得元素值与索引对应</span></span><br><span class="line">            <span class="keyword">int</span> temp =  nums[i];</span><br><span class="line">            nums[i] = nums[temp];</span><br><span class="line">            nums[temp] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>时间复杂度 O(N):</strong>    遍历数组使用<em>O</em>(<em>N</em>) ，每轮遍历的判断和交换操作使用<em>O</em>(1) 。</p>
+</li>
+<li><p><strong>空间复杂度 O(1) ：</strong> 使用常数复杂度的额外空间。</p>
+</li>
+</ul>
+<h3 id="要求时间复杂度O-1-的话，怎么实现？？？？？？？"><a href="#要求时间复杂度O-1-的话，怎么实现？？？？？？？" class="headerlink" title="要求时间复杂度O(1) 的话，怎么实现？？？？？？？"></a>要求时间复杂度O(1) 的话，怎么实现？？？？？？？</h3><h2 id="剑指-Offer-30-包含min函数的栈"><a href="#剑指-Offer-30-包含min函数的栈" class="headerlink" title="剑指 Offer 30. 包含min函数的栈"></a>剑指 Offer 30. 包含min函数的栈</h2><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20211224110825312.png" alt="image-20211224110825312">
+
+<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p>普通栈的 <code>push()</code> 和 <code>pop()</code> 函数的复杂度为 <em>O</em>(1) ；而获取栈最小值 <code>min()</code> 函数需要遍历整个栈，复杂度为 <em>O</em>(<em>N</em>) 。</p>
+<h3 id="难点："><a href="#难点：" class="headerlink" title="难点："></a>难点：</h3><p>那么本题要解决的就是 <strong>将 <code>min()</code> 函数复杂度降为 <em>O</em>(1) ，可通过建立辅助栈实现</strong>。</p>
+<h3 id="具体操作："><a href="#具体操作：" class="headerlink" title="具体操作："></a>具体操作：</h3><ul>
+<li><strong>数据栈 A</strong>：  栈 A用于存储所有元素，保证入栈 push() 函数、出栈 pop() 函数、获取栈顶 top() 函数的正常逻辑。</li>
+<li><strong>辅助栈 B</strong> ： 栈 B中存储栈 A中所有 非严格降序（相等也行） 的元素，则栈 A 中的最小元素始终对应栈 B的栈顶元素，即 min() 函数只需返回栈 B 的栈顶元素即可，可达到min（）的时间复杂度为O(N)的目的。</li>
+</ul>
+<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>&#123;</span><br><span class="line">    <span class="comment">//A保存所有元素，B保存非严格单调递减的元素（为了使得B栈顶就是最小值，时间复杂度为O（1））</span></span><br><span class="line">    Deque&lt;Integer&gt; A, B;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** initialize your data structure here. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MinStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.A = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.B = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        A.push(x);</span><br><span class="line">        <span class="keyword">if</span>(B.isEmpty() || B.peek() &gt;= x) &#123;</span><br><span class="line">            B.push(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(A.peek().equals(B.peek())) &#123;</span><br><span class="line">            B.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        A.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> A.peek();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">min</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> B.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MinStack object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * MinStack obj = new MinStack();</span></span><br><span class="line"><span class="comment"> * obj.push(x);</span></span><br><span class="line"><span class="comment"> * obj.pop();</span></span><br><span class="line"><span class="comment"> * int param_3 = obj.top();</span></span><br><span class="line"><span class="comment"> * int param_4 = obj.min();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度分析："><a href="#复杂度分析：" class="headerlink" title="复杂度分析："></a>复杂度分析：</h3><ul>
+<li><strong>时间复杂度 O(1) ：</strong> push( ), pop( ), top( ), min( ) 四个函数的时间复杂度均为常数级别。</li>
+<li><strong>空间复杂度 O(N) ：</strong> 当共有 N 个待入栈元素时，辅助栈 BB 最差情况下存储 N 个元素，使用 O(N） 额外空间。</li>
+</ul>
+<h2 id="剑指offer-10-II-青蛙跳台的问题"><a href="#剑指offer-10-II-青蛙跳台的问题" class="headerlink" title="剑指offer 10 - II. 青蛙跳台的问题"></a>剑指offer 10 - II. 青蛙跳台的问题</h2><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20211224170310559.png" alt="image-20211224170310559" style="zoom:80%;">
+
+<h3 id="递归三部曲："><a href="#递归三部曲：" class="headerlink" title="递归三部曲："></a>递归三部曲：</h3><ol>
+<li><p><strong>找base case</strong>，也就是<strong>找整个递归的终止条件：递归应该在什么时候结束？</strong></p>
+</li>
+<li><p><strong>找返回值</strong>：应该给上一级返回什么信息？</p>
+</li>
+<li><p><strong>本级递归应该做什么：</strong>在这一级递归中，应该完成什么任务？</p>
+</li>
+</ol>
+<p>一般想清楚<strong>本级递归应该做什么</strong>就能解决递归！</p>
+<p>在本题中，设跳上 n级台阶有 f(n)种跳法。在所有跳法中，青蛙的最后一步只有两种情况： <strong>跳上 1 级或 2 级台阶</strong>。</p>
+<p>所以本级递归应该完成 f(n) = f(n -1) + f(n - 2) ，就是把两种情况的各自有多少种情况加起来。</p>
+<h3 id="代码：-1"><a href="#代码：-1" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">//map用来记忆算过的f（n）,加快递归速度，不用去重复递归计算</span></span><br><span class="line">    HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numWays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(map.get(n) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> map.get(n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//base case</span></span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//本级递归种要做的事情</span></span><br><span class="line">        result = (numWays(n - <span class="number">2</span>)  + numWays(n -<span class="number">1</span>)) % <span class="number">1000000007</span>;</span><br><span class="line">        map.put(n, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="leetcode-24-两两交换链表中的结点"><a href="#leetcode-24-两两交换链表中的结点" class="headerlink" title="leetcode 24. 两两交换链表中的结点"></a>leetcode 24. 两两交换链表中的结点</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/">https://leetcode-cn.com/problems/swap-nodes-in-pairs/</a></p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20211224201958367.png" alt="image-20211224201958367"></p>
+<p>这种链表中的k个一组交换 —–&gt; 递归   相似的还有<code> leetcode 25. K个一组反转链表</code> <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/">https://leetcode-cn.com/problems/reverse-nodes-in-k-group/</a></p>
+<p><strong>base case</strong>: 只有一个节点或为空</p>
+<p><strong>本级递归要做的事情</strong>：</p>
+<p>head， head.next， swapPairs（head.next.next）这三个节点中，将head和head.next交换</p>
+<h3 id="代码：-2"><a href="#代码：-2" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//base case</span></span><br><span class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//本级递归</span></span><br><span class="line">        ListNode second = head.next;</span><br><span class="line">        head.next = swapPairs(head.next.next);</span><br><span class="line">        second.next = head;</span><br><span class="line">        <span class="keyword">return</span> second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://ykangli.github.io/2021/12/24/%E5%89%91%E6%8C%87offer-03/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://ykangli.github.io/2021/12/24/%E5%89%91%E6%8C%87offer-03/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://ykangli.top " style="border-bottom: none;">ykangli</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
