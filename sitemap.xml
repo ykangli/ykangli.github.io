@@ -4,7 +4,7 @@
   <url>
     <loc>http://ykangli.top/2021/12/28/Sliding-Window/</loc>
     
-    <lastmod>2021-12-29</lastmod>
+    <lastmod>2021-12-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -121,7 +121,7 @@
 
   <url>
     <loc>http://ykangli.top/</loc>
-    <lastmod>2021-12-29</lastmod>
+    <lastmod>2022-01-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -130,15 +130,15 @@
 
   
   <url>
-    <loc>http://ykangli.top/categories/algorithm/</loc>
-    <lastmod>2021-12-29</lastmod>
+    <loc>http://ykangli.top/categories/tech/</loc>
+    <lastmod>2022-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://ykangli.top/categories/tech/</loc>
-    <lastmod>2021-12-29</lastmod>
+    <loc>http://ykangli.top/categories/algorithm/</loc>
+    <lastmod>2022-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
