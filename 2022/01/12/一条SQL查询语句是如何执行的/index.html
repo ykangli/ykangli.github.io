@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World(Hexo Docs), Li&#39;s Blog">
+    <meta name="keywords" content="01 | 基础架构：一条SQL查询语句是如何执行的？, Li&#39;s Blog">
     <meta name="description" content="“Never let a good crisis go to waste.”">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World(Hexo Docs) | Li&#39;s Blog</title>
+    <title>01 | 基础架构：一条SQL查询语句是如何执行的？ | Li&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -387,12 +387,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/te.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World(Hexo Docs)</h1>
+                    <h1 class="description center-align post-title">01 | 基础架构：一条SQL查询语句是如何执行的？</h1>
                 </div>
             </div>
         </div>
@@ -513,15 +513,6 @@
                 </div>
                 <div class="col s5 right-align">
                     
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/tech/" class="post-category">
-                                tech
-                            </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
 
@@ -529,7 +520,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-12-21
+                    2022-01-12
                 </div>
                 
 
@@ -553,19 +544,61 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.Quick Start</p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="基础架构：一条SQL查询语句是如何执行的？"><a href="#基础架构：一条SQL查询语句是如何执行的？" class="headerlink" title="基础架构：一条SQL查询语句是如何执行的？"></a>基础架构：一条SQL查询语句是如何执行的？</h1><p>下面我给出的是 <strong>MySQL 的基本架构示意图</strong>，从中你可以清楚地看到 SQL 语句在 MySQL 的各个功能模块中的执行过程。</p>
+<img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/0d2070e8f84c4801adbfa03bda1f98d9.png" alt="img" style="zoom: 33%;">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>大体来说，MySQL 可以分为 <code>Server 层</code>和<code>存储引擎层</code>两部分。</p>
+<p><strong>Server 层</strong>包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），<strong>所有跨存储引擎的功能都在这一层实现</strong>，比如存储过程、触发器、视图等。</p>
+<p><strong>存储引擎层</strong>负责<code>数据的存储和提取</code>。其架构模式是<strong>插件式</strong>的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB（支持事务），它从 MySQL 5.5.5 版本开始成为了默认存储引擎。</p>
+<p>从图中不难看出，<strong>不同的存储引擎共用一个 Server 层</strong>，也就是从连接器到执行器的部分。</p>
+<h2 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h2><p>第一步，你会先连接到这个数据库上，这时候接待你的就是连接器。连接器负责跟客户端建立连接、获取权限、维持和管理连接。连接命令一般是这么写的：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql <span class="token operator">-</span>h$ip <span class="token operator">-</span>P$port <span class="token operator">-</span>u$<span class="token keyword">user</span> <span class="token operator">-</span>p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>输完命令之后，你就需要在交互对话里面输入密码。</p>
+<p>连接完成后，如果你没有后续的动作，这个连接就处于空闲状态，你可以在<code>show processlist</code>命令中看到它。文本中这个图是 <code>show processlist </code>的结果，其中的 Command 列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/f2da4aa3a672d48ec05df97b9f992fed.png" alt="img"></p>
+<p>客户端如果太长时间没动静，连接器就会自动将它断开。这个时间是由参数 <code>wait_timeout </code>控制的，默认值是 8 小时。</p>
+<p>数据库里面，长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接。短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。</p>
+<p>建立连接的过程通常是比较复杂的，<strong>尽量减少建立连接的动作，也就是尽量使用长连接。</strong></p>
+<p>但是全部使用长连接后，你可能会发现，有些时候 MySQL 占用内存涨得特别快，这是因为 MySQL 在执行过程中临时使用的内存是管理在连接对象里面的。这些资源会在连接断开的时候才释放。所以如果长连接累积下来，可能导致内存占用太大，被系统强行杀掉（OOM），从现象看就是 MySQL 异常重启了。</p>
+<p>怎么解决这个问题呢？你可以考虑以下两种方案。</p>
+<ol>
+<li>定期断开长连接。使用一段时间，或者程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连。</li>
+<li>如果你用的是 <code>MySQL 5.7 </code>或更新版本，可以在每次执行一个比较大的操作后，通过执行<code>mysql_reset_connection</code>来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。</li>
+</ol>
+<h2 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h2><p>连接建立完成后，你就可以执行 <code>select</code> 语句了。执行逻辑就会来到第二步：查询缓存。</p>
+<p>MySQL 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以 key-value 对的形式，被直接缓存在内存中。key 是查询的语句，value 是查询的结果。如果你的查询能够直接在这个缓存中找到 key，那么这个 value 就会被直接返回给客户端。如果语句不在查询缓存中，就会继续后面的执行阶段。执行完成后，执行结果会被存入查询缓存中。你可以看到，如果查询命中缓存，MySQL 不需要执行后面的复杂操作，就可以直接返回结果，这个效率会很高。</p>
+<p>缺点：</p>
+<p>查询缓存的失效非常频繁，<strong>只要有对一个表的更新，这个表上所有的查询缓存都会被清空</strong>。因此很可能你费劲地把结果存起来，还没使用呢，就被一个更新全清空了。对于更新压力大的数据库来说，查询缓存的命中率会非常低。除非你的业务就是有一张静态表，很长时间才会更新一次。比如，一个系统配置表，那这张表上的查询才适合使用查询缓存。</p>
+<p><strong>MySQL 8.0 版本直接将查询缓存的整块功能删掉了，也就是说 8.0 开始彻底没有这个功能了。</strong></p>
+<h2 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h2><p>如果没有命中查询缓存，就要开始真正执行语句了。首先，MySQL 需要知道你要做什么，因此需要对 SQL 语句做解析。</p>
+<p>分析器先会做“词法分析”。你输入的是由多个字符串和空格组成的一条 SQL 语句，MySQL 需要识别出里面的字符串分别是什么，代表什么。</p>
+<p>MySQL 从你输入的”select”这个关键字识别出来，这是一个查询语句。它也要把字符串“T”识别成“表名 T”，把字符串“ID”识别成“列 ID”。</p>
+<p>做完了这些识别以后，就要做“语法分析”。根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。</p>
+<p>如果你的语句不对，就会收到<code>“You have an error in your SQL syntax”</code>的错误提醒，比如下面这个语句 select 少打了开头的字母“s”。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> elect <span class="token operator">*</span> <span class="token keyword">from</span> t <span class="token keyword">where</span> ID<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>ERROR <span class="token number">1064</span> <span class="token punctuation">(</span><span class="token number">42000</span><span class="token punctuation">)</span>: You have an error <span class="token operator">in</span> your <span class="token keyword">SQL</span> syntax<span class="token punctuation">;</span> <span class="token keyword">check</span> the manual that corresponds <span class="token keyword">to</span> your MySQL server version <span class="token keyword">for</span> the <span class="token keyword">right</span> syntax <span class="token keyword">to</span> <span class="token keyword">use</span> near <span class="token string">'elect * from t where ID=1'</span> at line <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一般语法错误会<strong>提示第一个出现错误的位置</strong>，所以你要关注的是紧接<code>“use near”</code>的内容。</p>
+<h2 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h2><p>经过了分析器，MySQL 就知道你要做什么了。在开始执行之前，还要先经过优化器的处理。</p>
+<p>优化器是在表里面有多个索引的时候，<strong>决定使用哪个索引</strong>；或者在一个语句有多表关联（join）的时候，<strong>决定各个表的连接顺序</strong>。比如你执行下面这样的语句，这个语句是执行两个表的 join：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> t1 <span class="token keyword">join</span> t2 <span class="token keyword">using</span><span class="token punctuation">(</span>ID<span class="token punctuation">)</span> <span class="token keyword">where</span> t1<span class="token punctuation">.</span>c<span class="token operator">=</span><span class="token number">10</span> <span class="token operator">and</span> t2<span class="token punctuation">.</span>d<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>既可以先从表 t1 里面取出 c=10 的记录的 ID 值，再根据 ID 值关联到表 t2，再判断 t2 里面 d 的值是否等于 20。</p>
+<p>也可以先从表 t2 里面取出 d=20 的记录的 ID 值，再根据 ID 值关联到 t1，再判断 t1 里面 c 的值是否等于 10。</p>
+<p>这两种执行方法的逻辑结果是一样的，但是执行的效率会有不同，而优化器的作用就是决定选择使用哪一个方案。优化器阶段完成后，这个语句的执行方案就确定下来了，然后进入执行器阶段。</p>
+<h2 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h2><p>MySQL 通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。</p>
+<p>开始执行的时候，要先判断一下你对这个表 T 有没有执行查询的权限，如果没有，就会返回没有权限的错误，如下所示 (在工程实现上，如果命中查询缓存，会在查询缓存返回结果的时候，做权限验证。查询也会在优化器之前调用 precheck 验证权限)。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">></span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> T <span class="token keyword">where</span> ID<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">;</span>ERROR <span class="token number">1142</span> <span class="token punctuation">(</span><span class="token number">42000</span><span class="token punctuation">)</span>: <span class="token keyword">SELECT</span> command denied <span class="token keyword">to</span> <span class="token keyword">user</span> <span class="token string">'b'</span><span class="token variable">@'localhost'</span> <span class="token keyword">for</span> <span class="token keyword">table</span> <span class="token string">'T'</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。</p>
+<p>比如我们这个例子中的表 T 中，ID 字段没有索引，那么执行器的执行流程是这样的：</p>
+<p>调用 InnoDB 引擎接口取这个表的第一行，判断 ID 值是不是 10，如果不是则跳过，如果是则将这行存在结果集中；</p>
+<p>调用引擎接口取“下一行”，重复相同的判断逻辑，直到取到这个表的最后一行。</p>
+<p>执行器将上述遍历过程中所有满足条件的行组成的记录集作为结果集返回给客户端。</p>
+<p>至此，这个语句就执行完成了。</p>
+<p>对于有索引的表，执行的逻辑也差不多。第一次调用的是“取满足条件的第一行”这个接口，之后循环取“满足条件的下一行”这个接口，这些接口都是引擎中已经定义好的。</p>
+<p>你会在数据库的慢查询日志中看到一个<code>rows_examined</code>的字段，表示这个语句执行过程中扫描了多少行。这个值就是在执行器每次调用引擎获取数据行的时候累加的。</p>
+<p>在有些场景下，执行器调用一次，在引擎内部则扫描了多行，因此<strong>引擎扫描行数跟 rows_examined 并不是完全相同的</strong>。</p>
 
                 
             </div>
@@ -592,7 +625,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ykangli.top/2021/12/21/hello-world/">http://ykangli.top/2021/12/21/hello-world/</a>
+                    <a href="http://ykangli.top/2022/01/12/%E4%B8%80%E6%9D%A1SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/">http://ykangli.top/2022/01/12/%E4%B8%80%E6%9D%A1SQL%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E7%9A%84/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -801,32 +834,29 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/12/21/Build_A_Blog/">
+                <a href="/2022/01/13/%E4%B8%A4%E4%B8%AA%E9%87%8D%E8%A6%81%E6%97%A5%E5%BF%97%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/614759.jpg" class="responsive-img" alt="Hexo + Github + TecentCloud + PicGo + AliCloud OSS 搭建个人博客">
                         
-                        <span class="card-title">Hexo + Github + TecentCloud + PicGo + AliCloud OSS 搭建个人博客</span>
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="02 | 日志系统：一条SQL更新语句是如何执行的？（数据库使用InnoDB恢复原理）">
+                        
+                        <span class="card-title">02 | 日志系统：一条SQL更新语句是如何执行的？（数据库使用InnoDB恢复原理）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            利用Hexo + Github + 腾讯云域名 + PicGo + 阿里云 OSS 搭建个人博客
+                            
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-21
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-13
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/tech/" class="post-category">
-                                    tech
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Allen Li
                             
                         </span>
                     </div>
@@ -841,13 +871,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/14/%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                <a href="/2022/01/11/Spiral-Matrix/">
                     <div class="card-image">
                         
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/ccff416fa39887c938d36fec8e490e1861813d3bba7836eda941426f13420759-Picture1.png" class="responsive-img" alt="Spiral Matrix">
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MySQL实战45讲-03">
-                        
-                        <span class="card-title">MySQL实战45讲-03</span>
+                        <span class="card-title">Spiral Matrix</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -858,12 +887,16 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-11
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Allen Li
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category">
+                                    algorithm
+                                </a>
+                            
                             
                         </span>
                     </div>
