@@ -387,7 +387,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/s8958042.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -513,6 +513,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/database/" class="post-category">
+                                database
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -544,7 +553,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>事务的 <strong>隔离性</strong> 由这章讲述的 <strong>锁</strong> 来实现。  </p>
+                <p>事务的 <strong>隔离性</strong> 由这章讲述的 <strong>锁</strong> 来实现。  </p>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p><strong>锁</strong>是计算机协调多个进程或线程<strong>并发访问某一资源</strong>的机制。在程序开发中会存在多线程同步的问题，当多个线程并发访问某个数据的时候，尤其是针对一些敏感的数据(比如订单、金额等)，我们就需要保证这个数据在任何时刻<strong>最多只有一个线程在访问</strong>，保证数据的<strong>完整性</strong>和一致性。在开发过程中加锁是为了保证数据的一致性，这个思想在数据库领域中同样很重要。</p>
 <p>在数据库中，除传统的计算资源（如CPU、RAM、/O等）的争用以外，数据也是一种供计多用厂共寻的负源。乃保证数据的一致性，需要对<strong>并发操作进行控制</strong>，因此产生了<strong>锁</strong>。同时<strong>锁机制</strong>也为实现MysQL的各个隔离级别提供了保证。<strong>锁冲突</strong>也是影响数据库<strong>并发访问性能</strong>的一个重要因素。所以锁对数据库而言显得尤其重要，也更加复杂。</p>
 <h2 id="2-MySQL并发事务访问相同记录"><a href="#2-MySQL并发事务访问相同记录" class="headerlink" title="2. MySQL并发事务访问相同记录"></a>2. MySQL并发事务访问相同记录</h2><p>并发事务访问相同记录的情况大致可以分为3种：</p>
@@ -1101,7 +1110,7 @@ LOCK TABLES teacher READ;<span aria-hidden="true" class="line-numbers-rows"><spa
                 <a href="/2022/01/25/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/BingWallpaper.jpg" class="responsive-img" alt="多表查询">
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/s8958042.jpg" class="responsive-img" alt="多表查询">
                         
                         <span class="card-title">多表查询</span>
                     </div>
@@ -1137,8 +1146,7 @@ LOCK TABLES teacher READ;<span aria-hidden="true" class="line-numbers-rows"><spa
                 <a href="/2022/01/18/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="索引的创建与设计原则">
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/s8958042.jpg" class="responsive-img" alt="索引的创建与设计原则">
                         
                         <span class="card-title">索引的创建与设计原则</span>
                     </div>
@@ -1155,8 +1163,12 @@ LOCK TABLES teacher READ;<span aria-hidden="true" class="line-numbers-rows"><spa
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Allen Li
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/database/" class="post-category">
+                                    database
+                                </a>
+                            
                             
                         </span>
                     </div>
