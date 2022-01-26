@@ -772,7 +772,7 @@ class <span class="token keyword">varchar</span><span class="token punctuation">
 <p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220114123733312.png" alt="image-20220114123733312"></p>
 <p>我们在Session B中提交了几个 <strong>隐式事务</strong> （注意是隐式事务，意味着语句结束事务就提交了），这些事务都修改了studentno列为1的记录的列name的值，每次事务提交之后，如果Session A中的事务都可以查看到最新的值，这种现象也被称之为 <strong>不可重复读</strong> 。</p>
 <p><strong>4. 幻读（ Phantom ）</strong></p>
-<p>对于两个事务Session A、Session B, Session A 从一个表中 <strong>读取</strong> 了一个字段, 然后 Session B 在该表中 插入 了一些新的行。 之后, 如果 Session A 再次读取 <strong>同一个表</strong>, 就会多出几行。那就意味着发生了幻读。</p>
+<p>对于两个事务Session A、Session B, Session A 从一个表中 <strong>读取</strong> 了一个字段, 然后 Session B 在该表中 <strong>插入</strong> 了一些新的行。 之后, 如果 Session A 再次读取 <strong>同一个表</strong>, 就会多出几行。那就意味着发生了幻读。</p>
 <p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220114123846351.png" alt="image-20220114123846351"></p>
 <p>Session A中的事务先根据条件 studentno &gt; 0这个条件查询表student，得到了name列值为’张三’的记录；之后Session B中提交了一个 <strong>隐式事务</strong> ，该事务向表student中插入了一条新记录；之后Session A中的事务再根据相同的条件 studentno &gt; 0查询表student，得到的结果集中包含Session B中的事务新插入的那条记录，这种现象也被称之为 <strong>幻读</strong> 。我们把新插入的那些记录称之为 <strong>幻影记录</strong> 。</p>
 <h3 id="3-3-SQL中的四种隔离级别"><a href="#3-3-SQL中的四种隔离级别" class="headerlink" title="3.3 SQL中的四种隔离级别"></a>3.3 SQL中的四种隔离级别</h3><p>上面介绍了几种并发事务执行过程中可能遇到的一些问题，这些问题有轻重缓急之分，我们给这些问题按照严重性来排一下序：</p>

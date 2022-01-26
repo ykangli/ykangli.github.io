@@ -560,7 +560,7 @@
 <h3 id="2-1-读-读情况"><a href="#2-1-读-读情况" class="headerlink" title="2.1 读-读情况"></a>2.1 读-读情况</h3><p>读-读 情况，即并发事务相继 读取相同的记录 。读取操作本身不会对记录有任何影响，并不会引起什么<br>问题，所以允许这种情况的发生。  </p>
 <p>怎么解决 <strong>脏读 、 不可重复读 、 幻读</strong> 这些问题呢？其实有两种可选的解决方案：  </p>
 <h3 id="2-2-写-写情况"><a href="#2-2-写-写情况" class="headerlink" title="2.2 写-写情况"></a>2.2 写-写情况</h3><p>写-写 情况，即并发事务相继对相同的记录做出改动。</p>
-<p>在这种情况下会发生 脏写 的问题，任何一种隔离级别都不允许这种问题的发生。所以在多个未提交事务<br>相继对一条记录做改动时，需要让它们 排队执行 ，这个排队的过程其实是通过 锁 来实现的。这个所谓<br>的锁其实是一个 内存中的结构 ，在事务执行前本来是没有锁的，也就是说一开始是没有 锁结构 和记录进<br>行关联的，如图所示：  </p>
+<p>在这种情况下会发生 <strong>脏写</strong> 的问题，任何一种隔离级别都不允许这种问题的发生。所以在多个未提交事务相继对一条记录做改动时，需要让它们 排队执行 ，这个排队的过程其实是通过 <strong>锁</strong> 来实现的。这个所谓的锁其实是一个 <strong>内存中的结构</strong> ，在事务执行前本来是没有锁的，也就是说一开始是没有 锁结构 和记录进行关联的，如图所示：  </p>
 <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220119173930092.png" alt="image-20220119173930092" style="zoom: 50%;">
 
 <p>当一个事务想对这条记录做改动时，首先会看看内存中有没有与这条记录关联的 锁结构 ，当没有的时候就会在内存中生成一个 锁结构 与之关联。比如，事务 T1 要对这条记录做改动，就需要生成一个 锁结构与之关联 ：</p>
@@ -587,10 +587,11 @@
 <p>各个数据库厂商对 SQL标准 的支持都可能不一样。比如MySQL在 <strong>REPEATABLE READ</strong> 隔离级别上就已经解决了 <strong>幻读</strong> 问题。  </p>
 <h3 id="2-4-并发问题的解决方案"><a href="#2-4-并发问题的解决方案" class="headerlink" title="2.4 并发问题的解决方案"></a>2.4 并发问题的解决方案</h3><p>怎么解决 脏读 、 不可重复读 、 幻读 这些问题呢？其实有<strong>两种可选的解决方案</strong>：  </p>
 <p><strong>方案一</strong>：读操作利用多版本并发控制（ MVCC ，下章讲解），<strong>写</strong>操作进行 <code>加锁</code> 。  </p>
+<p>所谓的<strong>MVCC</strong>，就是生成一个<strong>ReadView</strong>，通过ReadView找到符合条件的记录版本（历史版本由<strong>undo日志</strong>构建)。查询语句只能<strong>读</strong>到在生成ReadView之前<strong>已提交事务所做的更改</strong>，在生成ReadView之前未提交的事务或者之后才开启的事务所做的更改是看不到的。而<strong>写操作</strong>肯定的是<strong>最新版本的记录</strong>，读记录的历史版本和改动记录的最新版本本身并不冲突，也就是采用MVCC时，<strong>读-写操作并不冲突</strong>。</p>
 <p>普通的SELECT语句在READ COMMITTED和REPEATABLE READ隔离级别下会使用到MVCC读取记录。</p>
 <ul>
-<li>在 <strong>READ COMMITTED</strong> 隔离级别下，一个事务在执行过程中每次执行SELECT操作时都会生成一<br>个ReadView，ReadView的存在本身就保证了 <strong>事务不可以读取到未提交的事务所做的更改</strong> ，也就<br>是避免了脏读现象；</li>
-<li>在 <strong>REPEATABLE READ</strong> 隔离级别下，一个事务在执行过程中只有 <strong>第一次执行SELECT操作</strong> 才会<br>生成一个ReadView，之后的SELECT操作都 <strong>复用</strong> 这个ReadView，这样也就避免了不可重复读<br>和幻读的问题。  </li>
+<li>在 <strong>READ COMMITTED</strong> 隔离级别下，一个事务在执行过程中每次执行SELECT操作时都会生成一个ReadView，ReadView的存在本身就保证了 <strong>事务不可以读取到未提交的事务所做的更改</strong> ，也就是避免了脏读现象；</li>
+<li>在 <strong>REPEATABLE READ</strong> 隔离级别下，一个事务在执行过程中只有 <strong>第一次执行SELECT操作</strong> 才会生成一个ReadView，之后的SELECT操作都 <strong>复用</strong> 这个ReadView，这样也就避免了不可重复读和幻读的问题。  </li>
 </ul>
 <p><strong>方案二</strong>：读、写操作都采用 加锁 的方式。  </p>
 <p>如果我们的一些业务场景不允许读取记录的旧版本，而是每次都必须去<strong>读取记录的最新版本</strong>。比如，在银行存款的事务中，你需要先把账户的余额读出来，然后将其加上本次存款的数额，最后再写到数据库中。在将账户余额读取出来后，就不想让别的事务再访问该余额，直到本次存款事务执行完成，其他事务才可以访问账户的余额。这样在读取记录的时候就需要对其进行<strong>加锁</strong>操作，这样也就意味着读操作和写操作也像<strong>写-写操作那样排队执行</strong>。</p>
