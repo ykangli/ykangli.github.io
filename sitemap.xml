@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ykangli.top/2022/01/26/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    
+    <lastmod>2022-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ykangli.top/2022/01/26/MVCC/</loc>
+    
+    <lastmod>2022-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ykangli.top/2022/01/27/1-Transaction-Manager/</loc>
+    
+    <lastmod>2022-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://ykangli.top/2022/01/27/0-%E7%94%A8Java%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C/</loc>
+    
+    <lastmod>2022-01-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://ykangli.top/2022/01/26/JDK-Configuration/</loc>
     
     <lastmod>2022-01-26</lastmod>
@@ -220,7 +256,7 @@
 
   <url>
     <loc>http://ykangli.top/</loc>
-    <lastmod>2022-01-26</lastmod>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -229,22 +265,29 @@
 
   
   <url>
-    <loc>http://ykangli.top/categories/tech/</loc>
-    <lastmod>2022-01-26</lastmod>
+    <loc>http://ykangli.top/categories/project/</loc>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://ykangli.top/categories/algorithm/</loc>
-    <lastmod>2022-01-26</lastmod>
+    <loc>http://ykangli.top/categories/tech/</loc>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/database/</loc>
-    <lastmod>2022-01-26</lastmod>
+    <lastmod>2022-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://ykangli.top/categories/algorithm/</loc>
+    <lastmod>2022-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
