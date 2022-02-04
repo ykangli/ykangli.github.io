@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="0-用Java手写一个数据库的准备工作, Li&#39;s Blog">
+    <meta name="keywords" content="Git学习笔记, Li&#39;s Blog">
     <meta name="description" content="“Never let a good crisis go to waste.”">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>0-用Java手写一个数据库的准备工作 | Li&#39;s Blog</title>
+    <title>Git学习笔记 | Li&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -387,12 +387,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/00002.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/2020-03-git-github-course-1024x576.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">0-用Java手写一个数据库的准备工作</h1>
+                    <h1 class="description center-align post-title">Git学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -513,15 +513,6 @@
                 </div>
                 <div class="col s5 right-align">
                     
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/project/" class="post-category">
-                                project
-                            </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
 
@@ -529,7 +520,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-27
+                    2022-02-03
                 </div>
                 
 
@@ -553,90 +544,110 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>​        作为非科班转码小菜鸡，一直感觉计算机的专业知识是自己的短板，而且只看视频学习很难真正理解和掌握相关指点，始终有一种好像懂了，又好像没懂的感觉，况且自己是那种不实践就不能深刻理解知识点的人，那么【造轮子】对自己来说好像是一个不错的方法了吧……著名带逛大师 <strong>轮子哥（vczh）</strong>将绝大部分时间都花在了「轮子」上，为了学习轮子哥的<del>带逛本领</del>编程能力，利用寒假时间从0 开始手写一个简单的数据库。恰好最近某天无聊逛牛客时，看到有大佬 [<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/825665?source_id=profile_create_nctrack&channel=-1">何人听我楚狂声 MYDB——一个简易的数据库实现完整教程</a>使用Java手写了数据库，有源码+文档，那还说啥，赶紧利用寒假在家的时间撸起来！！！</p>
-<p>​        就叫它 <strong>KangDB</strong> 吧~</p>
-<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>​        KangDB分为后端和前端，前后端通过 socket 进行交互。</p>
-<h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>​        前端（客户端）就是读取用户输入，并发送到后端执行，输出返回结果，并等待下一次输入。</p>
-<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>​        KangDB后端则需要解析 SQL，如果是合法的 SQL，就尝试执行并返回结果。不包括解析器，KangDB的后端划分为<strong>五个模块</strong>，每个模块都又一定的职责，通过接口向其依赖的模块提供方法。五个模块如下所示：</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220127112245276.png" alt="image-20220127112245276"></p>
-<p>每个模块的职责如下：</p>
+                <h1 id="Git学习笔记"><a href="#Git学习笔记" class="headerlink" title="Git学习笔记"></a>Git学习笔记</h1><h2 id="Git-Commit"><a href="#Git-Commit" class="headerlink" title="Git Commit"></a>Git Commit</h2><p>Git 仓库中的提交记录保存的是你的目录下所有文件的快照，就像是把整个目录复制，然后再粘贴一样，但比复制粘贴优雅许多！</p>
+<p>Git 希望提交记录尽可能地轻量，因此在你每次进行提交时，它并不会盲目地复制整个目录。条件允许的情况下，它会将当前版本与仓库中的上一个版本进行对比，并把所有的差异打包到一起作为一个提交记录。</p>
+<p>Git 还保存了提交的历史记录。这也是为什么大多数提交记录的上面都有父节点的原因 —— 我们会在图示中用箭头来表示这种关系。对于项目组的成员来说，维护提交历史对大家都有好处。</p>
+<p>实际操作一下，看看提交记录是怎样的。右边展示了一个（小型）Git 代码库。当前有两个提交记录 —— 初始提交 <code>C0</code> 和其后可能包含某些有用修改的提交 <code>C1</code>。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160058760.png" alt="image-20220203160058760"></p>
+<p>此时执行 <code>git commit</code>后：</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160141577.png" alt="image-20220203160141577"></p>
+<p>我们刚才修改了代码库，并把这些修改保存成了一个提交记录 <code>C2</code>。<code>C2</code> 的父节点是 <code>C1</code>，父节点是当前提交中变更的基础。</p>
+<h2 id="Git-Branch"><a href="#Git-Branch" class="headerlink" title="Git Branch"></a>Git Branch</h2><p>Git 的分支也非常轻量。它们只是简单地指向某个提交纪录 —— 仅此而已。所以许多 Git 爱好者传颂：早建分支！多用分支！</p>
+<p>这是因为即使创建再多的分支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。在将分支和提交记录结合起来后，我们会看到两者如何协作。现在只要记住使用分支其实就相当于在说：“我想基于这个提交以及它所有的父提交进行新的工作。”</p>
+<p>目前状态如下：</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160301341.png" alt="image-20220203160301341"></p>
+<p>接下来，我们将要创建一个到名为 <code>newImage</code> 的分支。 执行 <code>git branch newImage</code>:</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160348072.png" alt="image-20220203160348072"></p>
+<p>新创建的分支 <code>newImage</code> 指向的是提交记录 <code>C1</code>。</p>
+<p>现在执行<code>git commit</code>:</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160429885.png" alt="image-20220203160429885"></p>
+<p>为什么 <code>main</code> 分支前进了，但 <code>newImage</code> 分支还待在原地呢？！这是因为我们没有“在”这个新分支上，看到 <code>main</code> 分支上的那个星号（*）了吗？这表示当前所在的分支是 <code>main</code>。</p>
+<p>现在咱们告诉 Git 我们想要切换到新的分支上</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160532244.png" alt="image-20220203160532244"></p>
+<pre class="line-numbers language-none"><code class="language-none">git checkout &lt;name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>下面的命令会让我们在提交修改之前先切换到新的分支上</p>
+<p><code>git checkout newImage</code></p>
+<p><code>git commit</code></p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160619999.png" alt="image-20220203160619999"></p>
+<p>这就对了！我们的修改已经保存到新的分支里了。</p>
+<p><strong>注意</strong>：在 Git 2.23 版本中，引入了一个名为 <code>git switch</code> 的新命令，最终会取代 <code>git checkout</code>，因为 <code>checkout</code> 作为单个命令有点超载（它承载了很多独立的功能）。 </p>
+<p>如果你想<strong>创建一个新的分支同时切换到新创建的分支</strong>的话，可以通过 <code>git checkout -b &lt;your-branch-name&gt;</code> 来实现。</p>
+<h2 id="分支与合并"><a href="#分支与合并" class="headerlink" title="分支与合并"></a>分支与合并</h2><p>太好了! 我们已经知道如何提交以及如何使用分支了。接下来咱们看看如何将两个分支合并到一起。就是说我们新建一个分支，在其上开发某个新功能，开发完成后再合并回主线。</p>
+<h3 id="Git-Merge"><a href="#Git-Merge" class="headerlink" title="Git Merge"></a>Git Merge</h3><p>咱们先来看一下第一种方法 —— <code>git merge</code>。在 Git 中合并两个分支时会产生一个特殊的提交记录，它有两个父节点。翻译成自然语言相当于：“我要把这两个父节点本身及它们所有的祖先都包含进来。”</p>
+<p>我们准备了两个分支，每个分支上各有一个独有的提交。这意味着没有一个分支包含了我们修改的所有内容。咱们通过合并这两个分支来解决这个问题。</p>
+<p>我们要把 <code>bugFix</code> 合并到 <code>main</code> 里</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160846947.png" alt="image-20220203160846947"></p>
+<p>此时执行<code>git merge bugFix</code>：</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160942439.png" alt="image-20220203160942439"></p>
+<p>首先，<code>main</code> 现在指向了一个拥有两个父节点的提交记录。假如从 <code>main</code> 开始沿着箭头向上看，在到达起点的路上会经过所有的提交记录。这意味着 <code>main</code> 包含了对代码库的所有修改。</p>
+<p>还有，看见各个提交记录的颜色变化了吗？为了帮助学习理解，我引入了颜色搭配。每个分支都有不同的颜色，而每个提交记录的颜色是所有包含该提交记录的分支的颜色混合之后的颜色。</p>
+<p>所以，<code>main</code> 分支的颜色被混入到所有的提交记录，但 <code>bugFix</code> 没有。下面咱们让它也改变一下颜色。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161059572.png" alt="image-20220203161059572"></p>
+<p>此时执行以下命令：</p>
+<p><code>git checkout bugFix</code></p>
+<p><code>git merge main</code></p>
+<p>因为 <code>main</code> 继承自 <code>bugFix</code>，Git 什么都不用做，只是简单地把 <code>bugFix</code> 移动到 <code>main</code> 所指向的那个提交记录。</p>
+<p>现在所有提交记录的颜色都一样了，这表明每一个分支都包含了代码库的所有修改！大功告成！</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161159155.png" alt="image-20220203161159155"></p>
+<h3 id="Git-Rebase"><a href="#Git-Rebase" class="headerlink" title="Git Rebase"></a>Git Rebase</h3><p>第二种合并分支的方法是 <code>git rebase</code>。Rebase 实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。</p>
+<p>Rebase 的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用 Rebase 的话，代码库的提交历史将会变得异常清晰。</p>
+<p>还是准备了两个分支；注意当前所在的分支是 bugFix（星号标识的是当前分支）</p>
+<p>我们想要把 bugFix 分支里的工作直接移到 main 分支上。移动以后会使得两个分支的功能看起来像是按顺序开发，但实际上它们是并行开发的。咱们这次用 <code>git rebase</code> 实现此目标</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161306271.png" alt="image-20220203161306271"></p>
+<p>此时执行<code>git rebase main</code> :</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161517867.png" alt="image-20220203161517867"></p>
+<p>现在 bugFix 分支上的工作在 main 的最顶端，同时我们也得到了一个更线性的提交序列。</p>
+<p>注意，提交记录 C3 依然存在（树上那个半透明的节点），而 C3’ 是我们 Rebase 到 main 分支上的 C3 的副本。</p>
+<p>现在唯一的问题就是 main 还没有更新，下面咱们就来更新它吧……</p>
+<p>现在我们切换到了 <code>main</code> 上。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161632301.png" alt="image-20220203161632301"></p>
+<p>此时执行<code>git rebase bugFix</code>:</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161713269.png" alt="image-20220203161713269"></p>
+<p>由于 <code>bugFix</code> 继承自 <code>main</code>，所以 Git 只是简单的把 <code>main</code> 分支的引用向前移动了一下而已。</p>
+<h2 id="Git-Fetch"><a href="#Git-Fetch" class="headerlink" title="Git Fetch"></a>Git Fetch</h2><p>Git 远程仓库相当的操作实际可以归纳为两点：向远程仓库传输数据以及从远程仓库获取数据。既然我们能与远程仓库同步，那么就可以分享任何能被 Git 管理的更新（因此可以分享代码、文件、想法、情书等等）。</p>
+<p>如何从远程仓库获取数据，它就是 <code>git fetch</code>。当我们从远程仓库获取数据时, 远程分支也会更新以反映最新的远程仓库。</p>
+<p>在解释 <code>git fetch</code> 前，我们先看看实例。这里我们有一个远程仓库, 它有两个我们本地仓库中没有的提交。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203155737157.png" alt="image-20220203155737157"></p>
+<p>此时执行 <code>git fetch</code>后，状态如下：</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203155833869.png" alt="image-20220203155833869"></p>
+<p>就是这样了! <code>C2</code>,<code>C3</code> 被下载到了本地仓库，同时远程分支 <code>o/main</code> 也被更新，反映到了这一变化</p>
+<h3 id="git-fetch-做了些什么"><a href="#git-fetch-做了些什么" class="headerlink" title="git fetch 做了些什么"></a>git fetch 做了些什么</h3><p><code>git fetch</code> 完成了仅有的但是很重要的两步:</p>
 <ul>
-<li><p> TM 通过维护 XID 文件来维护事务的状态，并提供接口供其他模块来查询某个事务的状态。 </p>
-</li>
-<li><p>DM 直接管理数据库 DB 文件和日志文件。</p>
-<p>DM 的主要职责有：</p>
-<ol>
-<li>分页管理 DB 文件，并进行缓存；</li>
-</ol>
-<ol start="2">
-<li>管理日志文件，保证在发生错误时可以根据日志进行恢复；</li>
-<li>抽象 DB 文件为 DataItem 供上层模块使用，并提供缓存。 </li>
-</ol>
-</li>
-<li><p>VM 基于<strong>两段锁协议</strong>实现了调度序列的可串行化，并实现了 <strong>MVCC</strong> 以消除读写阻塞，同时实现了两种隔离级别（<strong>READ COMMITTED</strong> 和 <strong>REPEATABLE READ</strong> ）。</p>
-</li>
-<li><p> IM 实现了基于 B+ 树的索引，目前 where 只支持已索引字段。 </p>
-</li>
-<li><p>TBM 实现了对字段和表的管理。同时，解析 SQL 语句，并根据语句操作表。</p>
-</li>
+<li>从远程仓库下载本地仓库中缺失的提交记录</li>
+<li>更新远程分支指针(如 <code>o/main</code>)</li>
 </ul>
-<h2 id="开发环境和运行环境"><a href="#开发环境和运行环境" class="headerlink" title="开发环境和运行环境"></a>开发环境和运行环境</h2><p>​        项目开发时使用的 <strong>WSL2</strong> 和 <strong>JDK17</strong>，如果要在 Windows 上执行，请替换启动参数中的路径为 Windows，<strong>JDK 版本要保证在 11 或以上，不兼容 JDK 8</strong>。</p>
-<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>​        一般电脑都安装有JDK 8，关于如何在电脑中已有 JDK 8 的基础上再安装其他版本的 JDK ，并且能随意切换，详细教程见 <a href="https://ykangli.top/2022/01/26/JDK-Configuration/">电脑已有jdk 8，再配置一个jdk 17</a></p>
-<h3 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h3><p>​        <strong>WSL</strong> 全称 <strong>Windows Subsystem for Linux</strong>，官方翻译“<strong>适用于Linux的Windows子系统</strong>”。以下是微软官方对WSL的描述:</p>
-<p>您可以：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://aka.ms/wslstore">在 Microsoft Store</a> 中选择你偏好的 GNU/Linux 分发版。</li>
-<li>运行常用的命令行软件工具（例如 <code>grep</code>、<code>sed</code>、<code>awk</code>）或其他 ELF-64 二进制文件。</li>
-<li>运行 Bash shell 脚本和 GNU/Linux 命令行应用程序，包括：<ul>
-<li>工具：vim、emacs、tmux</li>
-<li>语言：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/nodejs/setup-on-wsl2">NodeJS</a>、Javascript、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/python/web-frameworks">Python</a>、Ruby、C/C++、C# 与 F#、Rust、Go 等</li>
-<li>服务：SSHD、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">MySQL</a>、Apache、lighttpd、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">MongoDB</a>、<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">PostgreSQL</a>。</li>
-</ul>
-</li>
-<li>使用自己的 GNU/Linux 分发包管理器安装其他软件。</li>
-<li>使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。</li>
-<li>在 Windows 上调用 GNU/Linux 应用程序。</li>
-</ul>
-<h4 id="什么是-WSL-2？"><a href="#什么是-WSL-2？" class="headerlink" title="什么是 WSL 2？"></a>什么是 WSL 2？</h4><p>​        WSL 2 是适用于 Linux 的 Windows 子系统体系结构的一个新版本，它支持适用于 Linux 的 Windows 子系统在 Windows 上运行 ELF64 Linux 二进制文件。 它的主要目标是<strong>提高文件系统性能</strong>，以及添加<strong>完全的系统调用兼容性</strong>。</p>
-<p>​        这一新的体系结构改变了这些 Linux 二进制文件与Windows 和计算机硬件进行交互的方式，但仍然提供与 WSL 1（当前广泛可用的版本）中相同的用户体验。</p>
-<p>​        单个 Linux 分发版可以在 WSL 1 或 WSL 2 体系结构中运行。 每个分发版可随时升级或降级，并且你可以并行运行 WSL 1 和 WSL 2 分发版。 WSL 2 使用全新的体系结构，该体系结构受益于运行真正的 Linux 内核。</p>
-<h4 id="为什么要使用WSL-amp-WSL-2-？"><a href="#为什么要使用WSL-amp-WSL-2-？" class="headerlink" title="为什么要使用WSL&amp;WSL 2 ？"></a>为什么要使用WSL&amp;WSL 2 ？</h4><p>​        我们日常工作学习中有很多涉及与Linux系统的交互，课程中也有大量的以Linux为基础的知识和命令，如果我们日常工作与使用环境就是Linux那还好，无需切换就可无缝对接。但Windows毕竟是市场占有率最高的操作系统，有大量的人群办公\日常环境需Windows，而开发环境需要Linux。这就产生了一些<strong>在Windows环境下使用Linux的需求</strong>。面对这个需求目前有如下集中常用解决方案：</p>
-<table>
-<thead>
-<tr>
-<th>方案</th>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单主机安装双系统</td>
-<td>真正的操作系统</td>
-<td>切换麻烦需要重启</td>
-</tr>
-<tr>
-<td>双主机安装双系统</td>
-<td>物理隔离</td>
-<td>成本高需要两台PC</td>
-</tr>
-<tr>
-<td>远程服务器</td>
-<td>真实的操作系统</td>
-<td>性能、带宽等局限</td>
-</tr>
-<tr>
-<td>虚拟机安装Linux</td>
-<td>完整的使用体验</td>
-<td>资源消耗大、启动慢、运行效率低</td>
-</tr>
-<tr>
-<td>WSL</td>
-<td>资源消耗小、启动快、无缝衔接</td>
-<td>使用体验可能不完整，某些Linux软件不支持</td>
-</tr>
-</tbody></table>
-<p>WSL方案是微软近两年拥抱开源后推出的一个非常棒的解决方案；使用WSL，Windows与Linux子系统将共用同一文件系统，Windows创建的文件Linux子系统也可以访问并修改，反之亦然。我们可以在WSL中使用三剑客命令查询分析windows文档、日志、使用shell命令或者bash脚本运行存储在windows中的linux程序、甚至在WSL中创建docker容器，在windows下使用docker desktop进行可视化管理。特别方便有双系统环境来回切换需求的人。总之<strong>使用WSL既可以使用windows的图形化操作界面又可以使用Linux便捷的命令行工具</strong>，很好的满足了我在windows下使用linux的需求。接下来我将介绍如何打造及使用Winux系统。</p>
-<h4 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h4><p>参照官方文档<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/install">安装 WSL</a></p>
+<p><code>git fetch</code> 实际上将本地仓库中的远程分支更新成了远程仓库相应分支最新的状态。</p>
+<p>如果你还记得上一节课程中我们说过的，远程分支反映了远程仓库在你<strong>最后一次与它通信时</strong>的状态，<code>git fetch</code> 就是你与远程仓库通信的方式了！希望我说的够明白了，你已经了解 <code>git fetch</code> 与远程分支之间的关系了吧。</p>
+<p><code>git fetch</code> 通常通过互联网（使用 <code>http://</code> 或 <code>git://</code> 协议) 与远程仓库通信。</p>
+<h3 id="git-fetch-不会做的事"><a href="#git-fetch-不会做的事" class="headerlink" title="git fetch 不会做的事"></a>git fetch 不会做的事</h3><p><code>git fetch</code> <strong>并不会改变你本地仓库的状态</strong>。它不会更新你的 <code>main</code> 分支，也<strong>不会修改你磁盘上的文件</strong>。</p>
+<p>理解这一点很重要，因为许多开发人员误以为执行了 <code>git fetch</code> 以后，他们本地仓库就与远程仓库同步了。它可能已经将进行这一操作所需的所有数据都下载了下来，但是<strong>并没有</strong>修改你本地的文件。我们在后面的课程中将会讲解能完成该操作的命令 :D</p>
+<p>所以, 你可以将 <code>git fetch</code> 的理解为单纯的下载操作。</p>
+<h2 id="偏离的工作"><a href="#偏离的工作" class="headerlink" title="偏离的工作"></a>偏离的工作</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>假设你周一克隆了一个仓库，然后开始研发某个新功能。到周五时，你新功能开发测试完毕，可以发布了。但是 —— 天啊！你的同事这周写了一堆代码，还改了许多你的功能中使用的 API，这些变动会导致你新开发的功能变得不可用。但是他们已经将那些提交推送到远程仓库了，因此你的工作就变成了基于项目<strong>旧版</strong>的代码，与远程仓库最新的代码不匹配了。</p>
+<p>这种情况下, <code>git push</code> 就不知道该如何操作了。如果你执行 <code>git push</code>，Git 应该让远程仓库回到星期一那天的状态吗？还是直接在新代码的基础上添加你的代码，亦或由于你的提交已经过时而直接忽略你的提交？</p>
+<p>因为这情况（历史偏离）有许多的不确定性，Git 是不会允许你 <code>push</code> 变更的。实际上它会强制你先合并远程最新的代码，然后才能分享你的工作。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164347886.png" alt="image-20220203164347886"></p>
+<p>此时若执行 <code>git push</code>:</p>
+<p>看见了吧？什么都没有变，因为命令失败了！<code>git push</code> 失败是因为你最新提交的 <code>C3</code> 基于远程分支中的 <code>C1</code>。而远程仓库中该分支已经更新到 <code>C2</code> 了，所以 Git 拒绝了你的推送请求。</p>
+<p>那该如何解决这个问题呢？很简单，你需要做的就是<strong>使你的工作基于最新的远程分支</strong>。</p>
+<p>有许多方法做到这一点呢，不过最直接的方法就是通过 rebase 调整你的工作。咱们继续，看看怎么 rebase！</p>
+<p>此时执行:</p>
+<p><code>git fetch </code></p>
+<p><code>git rebase o/main</code></p>
+<p><code>git push</code></p>
+<p>上面三条命令相当于 <code>git pull --rebase; git push</code></p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164655199.png" alt="image-20220203164655199"></p>
+<p>我们用 <code>git fetch</code> 更新了本地仓库中的远程分支，然后用 rebase 将我们的工作移动到最新的提交记录下，最后再用 <code>git push</code> 推送到远程仓库。</p>
+<p>还可以用 merge 替换 rebase。</p>
+<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164347886.png" alt="image-20220203164347886"></p>
+<p>此时执行:</p>
+<p><code>git fetch </code></p>
+<p><code>git merge o/main</code></p>
+<p><code>git push</code></p>
+<p>上面三条命令相当于 <code>git pull; git push</code></p>
+<p>我们用 <code>git fetch</code> 更新了本地仓库中的远程分支，然后<strong>合并</strong>了新变更到我们的本地分支（为了包含远程仓库的变更），最后我们用 <code>git push</code> 把工作推送到远程仓库</p>
+<p><strong>命令：</strong></p>
+<p><code>git pull</code> 就是 fetch 和 merge 的简写，类似的 <code>git pull --rebase</code> 就是 fetch 和 rebase 的简写！</p>
 
                 
             </div>
@@ -663,7 +674,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ykangli.top/2022/01/27/0-%E7%94%A8Java%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C/">http://ykangli.top/2022/01/27/0-%E7%94%A8Java%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C/</a>
+                    <a href="http://ykangli.top/2022/02/03/Git/">http://ykangli.top/2022/02/03/Git/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -868,56 +879,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2022/01/27/1-Transaction-Manager/">
-                    <div class="card-image">
-                        
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/00002.jpg" class="responsive-img" alt="1-手写数据库之Transaction Manager(事务管理器)">
-                        
-                        <span class="card-title">1-手写数据库之Transaction Manager(事务管理器)</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-27
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/project/" class="post-category">
-                                    project
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/01/26/JDK-Configuration/">
+                <a href="/2022/02/03/Git/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/R-C.jpg" class="responsive-img" alt="电脑已有jdk 8，再配置一个jdk 17">
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/2020-03-git-github-course-1024x576.jpg" class="responsive-img" alt="Git学习笔记">
                         
-                        <span class="card-title">电脑已有jdk 8，再配置一个jdk 17</span>
+                        <span class="card-title">Git学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -928,7 +900,45 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Allen Li
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/02/02/Java-NIO/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Java-NIO">
+                        
+                        <span class="card-title">Java-NIO</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-02
                             </span>
                         <span class="publish-author">
                             

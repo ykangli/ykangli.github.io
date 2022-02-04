@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="1-Transaction Manager(事务管理器), Li&#39;s Blog">
+    <meta name="keywords" content="1-手写数据库之Transaction Manager(事务管理器), Li&#39;s Blog">
     <meta name="description" content="“Never let a good crisis go to waste.”">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>1-Transaction Manager(事务管理器) | Li&#39;s Blog</title>
+    <title>1-手写数据库之Transaction Manager(事务管理器) | Li&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -392,7 +392,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">1-Transaction Manager(事务管理器)</h1>
+                    <h1 class="description center-align post-title">1-手写数据库之Transaction Manager(事务管理器)</h1>
                 </div>
             </div>
         </div>
@@ -553,12 +553,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Transaction-Manager-事务管理器"><a href="#Transaction-Manager-事务管理器" class="headerlink" title="Transaction Manager(事务管理器)"></a>Transaction Manager(事务管理器)</h1><p>TM对事务进行管理, 能够让其他模块查询事务的状态。</p>
+                <h1 id="1-手写数据库之Transaction-Manager-事务管理器"><a href="#1-手写数据库之Transaction-Manager-事务管理器" class="headerlink" title="1-手写数据库之Transaction Manager(事务管理器)"></a>1-手写数据库之Transaction Manager(事务管理器)</h1><p>TM对事务进行管理, 能够让其他模块查询事务的状态。</p>
 <p><strong>数据库模型如下图：</strong></p>
 <p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220127112245276.png" alt="image-20220127112245276"></p>
 <p>TM是怎么样标识各个事务的呢? TM会为每个事务, 分配一个特定的XID, 作为其标识. 且这个XID是递增的, 后开始的事务XID要大于先开始的事务。<strong>Transaction Manager（TM） 通过维护 XID 文件来维护事务的状态</strong>，并提供接口供其他模块来查询某个事务的状态。</p>
 <h2 id="XID文件"><a href="#XID文件" class="headerlink" title="XID文件"></a>XID文件</h2><p>在KangDB 中，每一个事务都有一个 <strong>XID</strong>，这个 ID <strong>唯一标识</strong>了这个事务。事务的 XID 从 <strong>1</strong> 开始标号，并自增，不可重复。并特殊规定 <strong>XID 0 是一个超级事务（Super Transaction）</strong>。因此如果上级模块想在不申请事务的情况下, 对数据库做一些修改, 则它可以将XID设置为0。<strong>XID 为 0 的事务的状态永远是 committed</strong>。 </p>
-<p>Transaction Manager 维护了一个 <strong>XID 格式的文件</strong>，用来记录各个事务的状态。KangDB 中，每个事务都有下面的三种状态：</p>
+<p><strong>Transaction Manager 维护了一个 XID 格式的文件，用来记录各个事务的状态</strong>。KangDB 中，每个事务都有下面的三种状态：</p>
 <ul>
 <li><p><strong>active</strong>    事务正在进行，尚未结束</p>
 </li>
@@ -566,10 +566,233 @@
 </li>
 <li><p><strong>aborted</strong>    事务回滚，进入中止状态</p>
 <p><strong>关于事务状态的具体内容详见 《数据库系统概念-第六版》P634</strong></p>
-</li>
+<img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220114115758371.png" alt="事务的状态"></li>
 </ul>
-<p>XID 文件给每个事务分配了一个字节的空间，用来保存其状态。同时，在 XID 文件的头部，还保存了一个 8 字节的数字，记录了这个 XID 文件管理的事务的个数。于是，事务 xid 在文件中的状态就存储在 (xid-1)+8 字节处，xid-1 是因为 xid 0（Super XID） 的状态不需要记录。</p>
-<p>Transaction Manager 提供了一些接口供其他模块调用，用来创建事务和查询事务状态。更具体的：</p>
+<p>XID 文件给每个事务分配了 <strong>1</strong> 个字节的空间，用来<strong>保存其状态</strong>。同时，在 XID 文件的头部，还保存了一个 <strong>8</strong> 字节的数字 (<strong>用 long 类型来记录，Java中 long 类型占8个字节</strong> )，记录了这个 XID 文件管理的事务的个数。于是，事务 xid 在文件中的状态就存储在 (xid-1)+8 字节处，xid-1 是因为 xid 0（Super XID） 的状态不需要记录。</p>
+<h3 id="TransactionManager-接口"><a href="#TransactionManager-接口" class="headerlink" title="TransactionManager 接口"></a>TransactionManager 接口</h3><p>TransactionManager 提供了一些接口供其他模块调用，用来创建事务和查询事务状态。具体如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">kangdb<span class="token punctuation">.</span>backend<span class="token punctuation">.</span>tm</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">kangdb<span class="token punctuation">.</span>backend<span class="token punctuation">.</span>utils<span class="token punctuation">.</span></span><span class="token class-name">Panic</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">kangdb<span class="token punctuation">.</span>common<span class="token punctuation">.</span></span><span class="token class-name">Error</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">File</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">FileNotFoundException</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">IOException</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">RandomAccessFile</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span><span class="token class-name">ByteBuffer</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>channels<span class="token punctuation">.</span></span><span class="token class-name">FileChannel</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * @author ykangli
+ * @version 1.0
+ * @date 2022/1/27 20:04
+ * TransactionManager 对事务进行管理, 能够让其他模块查询事务的状态。
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TransactionManager</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">/**
+     * 开始一个事务，并返回XID
+     * @return xid  (每一个事务都有一个 XID，这个 ID 唯一标识了这个事务)
+     */</span>
+    <span class="token keyword">long</span> <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 提交xid事务
+     * @param xid 事务的xid
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">commit</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 回滚xid事务
+     * @param xid 事务的xid
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">abort</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 查询一个事务的状态是否是正在进行的状态
+     * @param xid 事务的xid
+     * @return java.lang.boolean
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isActive</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     *  查询一个事务的状态是否是已提交
+     * @param xid 事务的xid
+     * @return java.lang.boolean
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isCommitted</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 查询一个事务的状态是否是已取消
+     * @param xid 事务的xid
+     * @return java.lang.boolean
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isAborted</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 关闭TM
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 创建一个 xid 文件并创建 Transaction Manager(TM)
+     * @param path xid文件路径
+     * @return TransactionManagerImpl对象
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">TransactionManagerImpl</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token class-name">String</span> path<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">File</span> file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>path <span class="token operator">+</span> <span class="token class-name">TransactionManagerImpl</span><span class="token punctuation">.</span>XID_SUFFIX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//创建文件失败</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>file<span class="token punctuation">.</span><span class="token function">createNewFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Error<span class="token punctuation">.</span>FileExistsException</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">//该函数确定程序是否可以读取或写入由抽象路径名表示的文件。</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>file<span class="token punctuation">.</span><span class="token function">canRead</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span>file<span class="token punctuation">.</span><span class="token function">canWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Error<span class="token punctuation">.</span>FileCannotRWException</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">FileChannel</span> fc <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token class-name">RandomAccessFile</span> raf <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            raf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RandomAccessFile</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> <span class="token string">"rw"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fc <span class="token operator">=</span> raf<span class="token punctuation">.</span><span class="token function">getChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">FileNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token comment">//写只有前8字节Header的空文件，即设置 xidCounter 为 0</span>
+        <span class="token class-name">ByteBuffer</span> buffer <span class="token operator">=</span> <span class="token class-name">ByteBuffer</span><span class="token punctuation">.</span><span class="token function">wrap</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token class-name">TransactionManagerImpl</span><span class="token punctuation">.</span>LEN_XID_HEADER_LENGTH<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            fc<span class="token punctuation">.</span><span class="token function">position</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fc<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TransactionManagerImpl</span><span class="token punctuation">(</span>raf<span class="token punctuation">,</span> fc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>public static TransactionManagerImpl create(String path)</strong></li>
+</ul>
+<p>创建<code>xxx.xid</code> 文件，并创建 TM，设置xidCounter 为0。</p>
+<ul>
+<li><strong>public static TransactionManagerImpl open(String path)</strong></li>
+</ul>
+<p>从一个已有的 xid 文件来创建 TM。</p>
+<h3 id="TransactionManagerImpl实现类"><a href="#TransactionManagerImpl实现类" class="headerlink" title="TransactionManagerImpl实现类"></a>TransactionManagerImpl实现类</h3><ul>
+<li><strong><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1137.html">Java RandomAccessFile类</a>：动态读取文件内容</strong></li>
+</ul>
+<p>所谓动态读取是指从文件的<strong>任意位置开始访问文件</strong>，而不是必须从文件开始位置读取到文件末尾。动态读取需要用到 Java 中的 RandomAccessFile 类。</p>
+<p>RandomAccessFile 是 Java 输入/输出流体系中功能最丰富的文件内容访问类，它提供了众多的方法来访问文件内容，它既可以读取文件内容，也可以向文件输出数据。由于 <strong>RandomAccessFile 可以从任意位置访问文件</strong>，所以在只需要访问文件部分内容的情况下，使用 RandonAccessFile 类是一个很好的选择。</p>
+<p>RandomAccessFile 对象包含了一个记录指针，用以标识当前读写处的位置，当程序新创建一个 RandomAccessFile 对象时，该对象的文件记录指针位于文件头（也就是 0 处），<strong>当读/写了 n 个字节后，文件记录指针将会向后移动 n 个字节</strong>。除此之外，RandonAccessFile <strong>可以自由移动该记录指针</strong>，既可以向前移动，也可以向后移动。</p>
+<pre class="line-numbers language-none"><code class="language-none">java.io.RandomAccessFile.length()方法 返回当前文件的长度，以字节为单位<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><strong>NIO</strong></li>
+</ul>
+<p>文件读写都采用了 NIO 方式的 FileChannel</p>
+<ul>
+<li><strong>private void checkXIDCounter()</strong></li>
+</ul>
+<p>在构造函数创建了一个 TransactionManager 之后，首先要对 XID 文件进行校验，以保证这是一个合法的 XID 文件。校验的方式也很简单，通过文件头的 8 字节数字**(long 类型) **反推文件的理论长度，与文件的实际长度做对比。如果不同则认为 XID 文件不合法。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+     * 检查XID文件是否合法
+     * 读取XID_FILE_HEADER中的xidcounter，根据它计算文件的理论长度，对比实际长度
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">checkXIDCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> fileLen <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">//文件的实际长度</span>
+            fileLen <span class="token operator">=</span> file<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e1<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Error<span class="token punctuation">.</span>BadXIDFileException</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>fileLen <span class="token operator">&lt;</span> LEN_XID_HEADER_LENGTH<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Error<span class="token punctuation">.</span>BadXIDFileException</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">//从堆空间中分配一个容量大小为 LEN_XID_HEADER_LENGTH 的byte数组作为缓冲区的byte数据存储器</span>
+        <span class="token class-name">ByteBuffer</span> buf <span class="token operator">=</span> <span class="token class-name">ByteBuffer</span><span class="token punctuation">.</span><span class="token function">allocate</span><span class="token punctuation">(</span>LEN_XID_HEADER_LENGTH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            fc<span class="token punctuation">.</span><span class="token function">position</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            fc<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">//初始时 xidCounter应该为0，刚开始没有事务开启</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>xidCounter <span class="token operator">=</span> <span class="token class-name">Parser</span><span class="token punctuation">.</span><span class="token function">parseLong</span><span class="token punctuation">(</span>buf<span class="token punctuation">.</span><span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//理论上文件的长度</span>
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token function">getXidPosition</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>xidCounter <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">!=</span> fileLen<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Error<span class="token punctuation">.</span>BadXIDFileException</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>初始时，该 <code>xxx.xid</code> 文件的长度就为 <strong>8</strong>个字节，记录的xidCounter = 0。 当开启事务时，<code>xxx.xid</code> 文件的前八个字节就会变化，相应的xidCounter 也就会变化。</p>
+<p>对于校验没有通过的，会直接通过 panic 方法，强制停机。在一些基础模块中出现错误都会如此处理，无法恢复的错误只能直接停机。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">kangdb<span class="token punctuation">.</span>backend<span class="token punctuation">.</span>utils</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * @author ykangli
+ * @version 1.0
+ * @date 2022/1/27 21:30
+ * 通过 panic 方法，强制停机。（终止当前正在运行的Java虚拟机）
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Panic</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">panic</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        err<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// status 为 0：表示正常退出程序，也就是结束当前正在运行中的java虚拟机。</span>
+        <span class="token comment">// status 为 1 或 -1 或 任何其他非零值 ：表示非正常退出当前程序。</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>l<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>private long getXidPosition(long xid)</strong></li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 根据事务xid取得其在xid文件中对应的位置
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">long</span> <span class="token function">getXidPosition</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> LEN_XID_HEADER_LENGTH <span class="token operator">+</span> <span class="token punctuation">(</span>xid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> XID_FIELD_SIZE<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>事务 xid 在文件中的状态就存储在 (xid-1)+8 字节处，xid-1 是因为 xid 0（Super XID） 的状态不需要记录。</p>
+<ul>
+<li><strong>private void updateXID(long xid, byte status)</strong></li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * 更新xid事务的状态为status
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">updateXID</span><span class="token punctuation">(</span><span class="token keyword">long</span> xid<span class="token punctuation">,</span> <span class="token keyword">byte</span> status<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">long</span> offset <span class="token operator">=</span> <span class="token function">getXidPosition</span><span class="token punctuation">(</span>xid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">byte</span><span class="token punctuation">[</span>XID_FIELD_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    bytes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> status<span class="token punctuation">;</span>
+    <span class="token class-name">ByteBuffer</span> buffer <span class="token operator">=</span> <span class="token class-name">ByteBuffer</span><span class="token punctuation">.</span><span class="token function">wrap</span><span class="token punctuation">(</span>bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        fc<span class="token punctuation">.</span><span class="token function">position</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fc<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//nio中方法，强制同步缓存内容到文件中</span>
+        fc<span class="token punctuation">.</span><span class="token function">force</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Panic</span><span class="token punctuation">.</span><span class="token function">panic</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>所有文件操作，在执行后都<strong>需要立刻刷入文件中</strong>，防止在崩溃后文件丢失数据，<strong>fileChannel</strong> 的<code>force()</code>方法，强制同步缓存内容到文件中，类似于 BIO 中的 flush() 方法。force 方法的参数是一个布尔，表示是否同步文件的元数据（例如最后修改时间等）。</p>
+<ul>
+<li><strong>public long begin()</strong></li>
+</ul>
+<p><code>begin()</code> 方法会开始一个事务，更具体的，首先设置 xidCounter+1 事务的状态为 committed，随后 xidCounter 自增，并更新文件头。</p>
+<p>最后利用 <code>TransactionManagerImpl</code> 来实现两个方法<code>public static TransactionManagerImpl create(String path)</code> 和 <code>public static TransactionManagerImpl open(String path)</code>，分别表示创建一个 xid 文件并创建 TM 和从一个已有的 xid 文件来创建 TM。</p>
+<p>为了方便管理和使用，没有将这两个方法写在实现类 <code>TransactionManagerImpl</code> 里面，而是将其写在接口<code>TransactionManager</code>里，也就是<strong>静态方法</strong>，详见 <code>TransactionManagerImpl</code> 中的代码。</p>
 
                 
             </div>
@@ -801,17 +1024,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/27/1-Transaction-Manager/">
+                <a href="/2022/01/31/JavaGuide/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/00002.jpg" class="responsive-img" alt="1-Transaction Manager(事务管理器)">
                         
-                        <span class="card-title">1-Transaction Manager(事务管理器)</span>
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="JavaGuide">
+                        
+                        <span class="card-title">JavaGuide</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -821,22 +1044,17 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-27
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-31
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/project/" class="post-category">
-                                    project
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Allen Li
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
