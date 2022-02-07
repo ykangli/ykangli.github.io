@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Git学习笔记, Li&#39;s Blog">
+    <meta name="keywords" content="maven配置多仓库, Li&#39;s Blog">
     <meta name="description" content="“Never let a good crisis go to waste.”">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Git学习笔记 | Li&#39;s Blog</title>
+    <title>maven配置多仓库 | Li&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -387,12 +387,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/2020-03-git-github-course-1024x576.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/OIP-C.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Git学习笔记</h1>
+                    <h1 class="description center-align post-title">maven配置多仓库</h1>
                 </div>
             </div>
         </div>
@@ -513,6 +513,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Maven/" class="post-category">
+                                Maven
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -520,7 +529,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-02-03
+                    2022-02-04
                 </div>
                 
 
@@ -544,110 +553,59 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Git学习笔记"><a href="#Git学习笔记" class="headerlink" title="Git学习笔记"></a>Git学习笔记</h1><h2 id="Git-Commit"><a href="#Git-Commit" class="headerlink" title="Git Commit"></a>Git Commit</h2><p>Git 仓库中的提交记录保存的是你的目录下所有文件的快照，就像是把整个目录复制，然后再粘贴一样，但比复制粘贴优雅许多！</p>
-<p>Git 希望提交记录尽可能地轻量，因此在你每次进行提交时，它并不会盲目地复制整个目录。条件允许的情况下，它会将当前版本与仓库中的上一个版本进行对比，并把所有的差异打包到一起作为一个提交记录。</p>
-<p>Git 还保存了提交的历史记录。这也是为什么大多数提交记录的上面都有父节点的原因 —— 我们会在图示中用箭头来表示这种关系。对于项目组的成员来说，维护提交历史对大家都有好处。</p>
-<p>实际操作一下，看看提交记录是怎样的。右边展示了一个（小型）Git 代码库。当前有两个提交记录 —— 初始提交 <code>C0</code> 和其后可能包含某些有用修改的提交 <code>C1</code>。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160058760.png" alt="image-20220203160058760"></p>
-<p>此时执行 <code>git commit</code>后：</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160141577.png" alt="image-20220203160141577"></p>
-<p>我们刚才修改了代码库，并把这些修改保存成了一个提交记录 <code>C2</code>。<code>C2</code> 的父节点是 <code>C1</code>，父节点是当前提交中变更的基础。</p>
-<h2 id="Git-Branch"><a href="#Git-Branch" class="headerlink" title="Git Branch"></a>Git Branch</h2><p>Git 的分支也非常轻量。它们只是简单地指向某个提交纪录 —— 仅此而已。所以许多 Git 爱好者传颂：早建分支！多用分支！</p>
-<p>这是因为即使创建再多的分支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。在将分支和提交记录结合起来后，我们会看到两者如何协作。现在只要记住使用分支其实就相当于在说：“我想基于这个提交以及它所有的父提交进行新的工作。”</p>
-<p>目前状态如下：</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160301341.png" alt="image-20220203160301341"></p>
-<p>接下来，我们将要创建一个到名为 <code>newImage</code> 的分支。 执行 <code>git branch newImage</code>:</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160348072.png" alt="image-20220203160348072"></p>
-<p>新创建的分支 <code>newImage</code> 指向的是提交记录 <code>C1</code>。</p>
-<p>现在执行<code>git commit</code>:</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160429885.png" alt="image-20220203160429885"></p>
-<p>为什么 <code>main</code> 分支前进了，但 <code>newImage</code> 分支还待在原地呢？！这是因为我们没有“在”这个新分支上，看到 <code>main</code> 分支上的那个星号（*）了吗？这表示当前所在的分支是 <code>main</code>。</p>
-<p>现在咱们告诉 Git 我们想要切换到新的分支上</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160532244.png" alt="image-20220203160532244"></p>
-<pre class="line-numbers language-none"><code class="language-none">git checkout &lt;name&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <p><a href="%5Bhttp://repo1.maven.org/maven2/%5D(http://link.zhihu.com/?target=http://repo1.maven.org/maven2/)">maven官方仓库</a>国内访问较慢，一般配置<a target="_blank" rel="noopener" href="https://maven.aliyun.com/repository/public">maven镜像阿里云仓库</a>，但阿里maven仓库有些依赖找不到，还得去官方仓库中去找，因此我们需要配置多个仓库，当第一个仓库没有时候就去第二个仓库中找，确保项目的依赖都可以成功下载。</p>
+<p>下面为具体的maven配置指南：</p>
+<ol>
+<li>打开 maven 的配置文件（ windows 机器一般在 maven 安装目录的<strong>conf/settings.xml</strong>），在<mirrors></mirrors>标签中添加 mirror 子节点，加入阿里仓库作为中央仓库</li>
+</ol>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirror</span><span class="token punctuation">></span></span>
+   	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+    	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mirrorOf</span><span class="token punctuation">></span></span>central<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirrorOf</span><span class="token punctuation">></span></span>
+    	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>https://maven.aliyun.com/repository/public<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mirror</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>下面的命令会让我们在提交修改之前先切换到新的分支上</p>
-<p><code>git checkout newImage</code></p>
-<p><code>git commit</code></p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160619999.png" alt="image-20220203160619999"></p>
-<p>这就对了！我们的修改已经保存到新的分支里了。</p>
-<p><strong>注意</strong>：在 Git 2.23 版本中，引入了一个名为 <code>git switch</code> 的新命令，最终会取代 <code>git checkout</code>，因为 <code>checkout</code> 作为单个命令有点超载（它承载了很多独立的功能）。 </p>
-<p>如果你想<strong>创建一个新的分支同时切换到新创建的分支</strong>的话，可以通过 <code>git checkout -b &lt;your-branch-name&gt;</code> 来实现。</p>
-<h2 id="分支与合并"><a href="#分支与合并" class="headerlink" title="分支与合并"></a>分支与合并</h2><p>太好了! 我们已经知道如何提交以及如何使用分支了。接下来咱们看看如何将两个分支合并到一起。就是说我们新建一个分支，在其上开发某个新功能，开发完成后再合并回主线。</p>
-<h3 id="Git-Merge"><a href="#Git-Merge" class="headerlink" title="Git Merge"></a>Git Merge</h3><p>咱们先来看一下第一种方法 —— <code>git merge</code>。在 Git 中合并两个分支时会产生一个特殊的提交记录，它有两个父节点。翻译成自然语言相当于：“我要把这两个父节点本身及它们所有的祖先都包含进来。”</p>
-<p>我们准备了两个分支，每个分支上各有一个独有的提交。这意味着没有一个分支包含了我们修改的所有内容。咱们通过合并这两个分支来解决这个问题。</p>
-<p>我们要把 <code>bugFix</code> 合并到 <code>main</code> 里</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160846947.png" alt="image-20220203160846947"></p>
-<p>此时执行<code>git merge bugFix</code>：</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203160942439.png" alt="image-20220203160942439"></p>
-<p>首先，<code>main</code> 现在指向了一个拥有两个父节点的提交记录。假如从 <code>main</code> 开始沿着箭头向上看，在到达起点的路上会经过所有的提交记录。这意味着 <code>main</code> 包含了对代码库的所有修改。</p>
-<p>还有，看见各个提交记录的颜色变化了吗？为了帮助学习理解，我引入了颜色搭配。每个分支都有不同的颜色，而每个提交记录的颜色是所有包含该提交记录的分支的颜色混合之后的颜色。</p>
-<p>所以，<code>main</code> 分支的颜色被混入到所有的提交记录，但 <code>bugFix</code> 没有。下面咱们让它也改变一下颜色。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161059572.png" alt="image-20220203161059572"></p>
-<p>此时执行以下命令：</p>
-<p><code>git checkout bugFix</code></p>
-<p><code>git merge main</code></p>
-<p>因为 <code>main</code> 继承自 <code>bugFix</code>，Git 什么都不用做，只是简单地把 <code>bugFix</code> 移动到 <code>main</code> 所指向的那个提交记录。</p>
-<p>现在所有提交记录的颜色都一样了，这表明每一个分支都包含了代码库的所有修改！大功告成！</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161159155.png" alt="image-20220203161159155"></p>
-<h3 id="Git-Rebase"><a href="#Git-Rebase" class="headerlink" title="Git Rebase"></a>Git Rebase</h3><p>第二种合并分支的方法是 <code>git rebase</code>。Rebase 实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。</p>
-<p>Rebase 的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用 Rebase 的话，代码库的提交历史将会变得异常清晰。</p>
-<p>还是准备了两个分支；注意当前所在的分支是 bugFix（星号标识的是当前分支）</p>
-<p>我们想要把 bugFix 分支里的工作直接移到 main 分支上。移动以后会使得两个分支的功能看起来像是按顺序开发，但实际上它们是并行开发的。咱们这次用 <code>git rebase</code> 实现此目标</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161306271.png" alt="image-20220203161306271"></p>
-<p>此时执行<code>git rebase main</code> :</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161517867.png" alt="image-20220203161517867"></p>
-<p>现在 bugFix 分支上的工作在 main 的最顶端，同时我们也得到了一个更线性的提交序列。</p>
-<p>注意，提交记录 C3 依然存在（树上那个半透明的节点），而 C3’ 是我们 Rebase 到 main 分支上的 C3 的副本。</p>
-<p>现在唯一的问题就是 main 还没有更新，下面咱们就来更新它吧……</p>
-<p>现在我们切换到了 <code>main</code> 上。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161632301.png" alt="image-20220203161632301"></p>
-<p>此时执行<code>git rebase bugFix</code>:</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203161713269.png" alt="image-20220203161713269"></p>
-<p>由于 <code>bugFix</code> 继承自 <code>main</code>，所以 Git 只是简单的把 <code>main</code> 分支的引用向前移动了一下而已。</p>
-<h2 id="Git-Fetch"><a href="#Git-Fetch" class="headerlink" title="Git Fetch"></a>Git Fetch</h2><p>Git 远程仓库相当的操作实际可以归纳为两点：向远程仓库传输数据以及从远程仓库获取数据。既然我们能与远程仓库同步，那么就可以分享任何能被 Git 管理的更新（因此可以分享代码、文件、想法、情书等等）。</p>
-<p>如何从远程仓库获取数据，它就是 <code>git fetch</code>。当我们从远程仓库获取数据时, 远程分支也会更新以反映最新的远程仓库。</p>
-<p>在解释 <code>git fetch</code> 前，我们先看看实例。这里我们有一个远程仓库, 它有两个我们本地仓库中没有的提交。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203155737157.png" alt="image-20220203155737157"></p>
-<p>此时执行 <code>git fetch</code>后，状态如下：</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203155833869.png" alt="image-20220203155833869"></p>
-<p>就是这样了! <code>C2</code>,<code>C3</code> 被下载到了本地仓库，同时远程分支 <code>o/main</code> 也被更新，反映到了这一变化</p>
-<h3 id="git-fetch-做了些什么"><a href="#git-fetch-做了些什么" class="headerlink" title="git fetch 做了些什么"></a>git fetch 做了些什么</h3><p><code>git fetch</code> 完成了仅有的但是很重要的两步:</p>
-<ul>
-<li>从远程仓库下载本地仓库中缺失的提交记录</li>
-<li>更新远程分支指针(如 <code>o/main</code>)</li>
-</ul>
-<p><code>git fetch</code> 实际上将本地仓库中的远程分支更新成了远程仓库相应分支最新的状态。</p>
-<p>如果你还记得上一节课程中我们说过的，远程分支反映了远程仓库在你<strong>最后一次与它通信时</strong>的状态，<code>git fetch</code> 就是你与远程仓库通信的方式了！希望我说的够明白了，你已经了解 <code>git fetch</code> 与远程分支之间的关系了吧。</p>
-<p><code>git fetch</code> 通常通过互联网（使用 <code>http://</code> 或 <code>git://</code> 协议) 与远程仓库通信。</p>
-<h3 id="git-fetch-不会做的事"><a href="#git-fetch-不会做的事" class="headerlink" title="git fetch 不会做的事"></a>git fetch 不会做的事</h3><p><code>git fetch</code> <strong>并不会改变你本地仓库的状态</strong>。它不会更新你的 <code>main</code> 分支，也<strong>不会修改你磁盘上的文件</strong>。</p>
-<p>理解这一点很重要，因为许多开发人员误以为执行了 <code>git fetch</code> 以后，他们本地仓库就与远程仓库同步了。它可能已经将进行这一操作所需的所有数据都下载了下来，但是<strong>并没有</strong>修改你本地的文件。我们在后面的课程中将会讲解能完成该操作的命令 :D</p>
-<p>所以, 你可以将 <code>git fetch</code> 的理解为单纯的下载操作。</p>
-<h2 id="偏离的工作"><a href="#偏离的工作" class="headerlink" title="偏离的工作"></a>偏离的工作</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>假设你周一克隆了一个仓库，然后开始研发某个新功能。到周五时，你新功能开发测试完毕，可以发布了。但是 —— 天啊！你的同事这周写了一堆代码，还改了许多你的功能中使用的 API，这些变动会导致你新开发的功能变得不可用。但是他们已经将那些提交推送到远程仓库了，因此你的工作就变成了基于项目<strong>旧版</strong>的代码，与远程仓库最新的代码不匹配了。</p>
-<p>这种情况下, <code>git push</code> 就不知道该如何操作了。如果你执行 <code>git push</code>，Git 应该让远程仓库回到星期一那天的状态吗？还是直接在新代码的基础上添加你的代码，亦或由于你的提交已经过时而直接忽略你的提交？</p>
-<p>因为这情况（历史偏离）有许多的不确定性，Git 是不会允许你 <code>push</code> 变更的。实际上它会强制你先合并远程最新的代码，然后才能分享你的工作。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164347886.png" alt="image-20220203164347886"></p>
-<p>此时若执行 <code>git push</code>:</p>
-<p>看见了吧？什么都没有变，因为命令失败了！<code>git push</code> 失败是因为你最新提交的 <code>C3</code> 基于远程分支中的 <code>C1</code>。而远程仓库中该分支已经更新到 <code>C2</code> 了，所以 Git 拒绝了你的推送请求。</p>
-<p>那该如何解决这个问题呢？很简单，你需要做的就是<strong>使你的工作基于最新的远程分支</strong>。</p>
-<p>有许多方法做到这一点呢，不过最直接的方法就是通过 rebase 调整你的工作。咱们继续，看看怎么 rebase！</p>
-<p>此时执行:</p>
-<p><code>git fetch </code></p>
-<p><code>git rebase o/main</code></p>
-<p><code>git push</code></p>
-<p>上面三条命令相当于 <code>git pull --rebase; git push</code></p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164655199.png" alt="image-20220203164655199"></p>
-<p>我们用 <code>git fetch</code> 更新了本地仓库中的远程分支，然后用 rebase 将我们的工作移动到最新的提交记录下，最后再用 <code>git push</code> 推送到远程仓库。</p>
-<p>还可以用 merge 替换 rebase。</p>
-<p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/image-20220203164347886.png" alt="image-20220203164347886"></p>
-<p>此时执行:</p>
-<p><code>git fetch </code></p>
-<p><code>git merge o/main</code></p>
-<p><code>git push</code></p>
-<p>上面三条命令相当于 <code>git pull; git push</code></p>
-<p>我们用 <code>git fetch</code> 更新了本地仓库中的远程分支，然后<strong>合并</strong>了新变更到我们的本地分支（为了包含远程仓库的变更），最后我们用 <code>git push</code> 把工作推送到远程仓库</p>
-<p><strong>命令：</strong></p>
-<p><code>git pull</code> 就是 fetch 和 merge 的简写，类似的 <code>git pull --rebase</code> 就是 fetch 和 rebase 的简写！</p>
+<ol start="2">
+<li>在<profiles></profiles>标签里加入需要的私人仓库</li>
+</ol>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token comment">&lt;!--profile和repository里的id唯一，不可重复--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profile</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>gf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repositories</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>repository</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>maven-default<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://repo1.maven.org/maven2/<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>releases</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>releases</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>snapshots</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enabled</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enabled</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>updatePolicy</span><span class="token punctuation">></span></span>always<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>updatePolicy</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>snapshots</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profile</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>profile</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>id</span><span class="token punctuation">></span></span>jdk-1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>id</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activation</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeByDefault</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeByDefault</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>jdk</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>jdk</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activation</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compiler.source</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compiler.source</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compiler.target</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compiler.target</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>maven.compiler.compilerVersion</span><span class="token punctuation">></span></span>1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>maven.compiler.compilerVersion</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>profile</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>在最后的<code>&lt;/setting&gt;</code>标签里填入</li>
+</ol>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeProfiles</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeProfile</span><span class="token punctuation">></span></span>aliyun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeProfile</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activeProfile</span><span class="token punctuation">></span></span>gf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeProfile</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activeProfiles</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -674,7 +632,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://ykangli.top/2022/02/03/Git/">http://ykangli.top/2022/02/03/Git/</a>
+                    <a href="http://ykangli.top/2022/02/04/maven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93/">http://ykangli.top/2022/02/04/maven%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%BB%93%E5%BA%93/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -883,12 +841,12 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/04/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95/">
+                <a href="/2022/02/04/2-Data-Manager/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/R-C.jpg" class="responsive-img" alt="代码随想录-双指针法">
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/s8958042.jpg" class="responsive-img" alt="2-Data-Manager">
                         
-                        <span class="card-title">代码随想录-双指针法</span>
+                        <span class="card-title">2-Data-Manager</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -905,8 +863,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/algorithm/" class="post-category">
-                                    algorithm
+                            <a href="/categories/project/" class="post-category">
+                                    project
                                 </a>
                             
                             
@@ -923,12 +881,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/02/Java-NIO/">
+                <a href="/2022/02/04/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95/">
                     <div class="card-image">
                         
-                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/w_java71c8.jpg" class="responsive-img" alt="Java-NIO">
+                        <img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/R-C.jpg" class="responsive-img" alt="代码随想录-双指针法">
                         
-                        <span class="card-title">Java-NIO</span>
+                        <span class="card-title">代码随想录-双指针法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -939,12 +897,16 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-04
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Allen Li
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category">
+                                    algorithm
+                                </a>
+                            
                             
                         </span>
                     </div>
