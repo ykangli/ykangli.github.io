@@ -2,9 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://ykangli.top/2022/03/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    
+    <lastmod>2022-03-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://ykangli.top/2022/03/09/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</loc>
     
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -373,7 +382,7 @@
 
   <url>
     <loc>http://ykangli.top/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -383,35 +392,35 @@
   
   <url>
     <loc>http://ykangli.top/categories/project/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/algorithm/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/tech/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/database/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/Maven/</loc>
-    <lastmod>2022-03-09</lastmod>
+    <lastmod>2022-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
