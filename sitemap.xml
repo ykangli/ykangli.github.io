@@ -4,7 +4,7 @@
   <url>
     <loc>http://ykangli.top/2022/03/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-11</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -59,15 +59,6 @@
     <loc>http://ykangli.top/2022/02/09/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
     
     <lastmod>2022-02-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://ykangli.top/2022/01/31/JavaGuide/</loc>
-    
-    <lastmod>2022-02-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -382,7 +373,7 @@
 
   <url>
     <loc>http://ykangli.top/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -392,35 +383,35 @@
   
   <url>
     <loc>http://ykangli.top/categories/project/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/algorithm/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/tech/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/database/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://ykangli.top/categories/Maven/</loc>
-    <lastmod>2022-03-10</lastmod>
+    <lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
