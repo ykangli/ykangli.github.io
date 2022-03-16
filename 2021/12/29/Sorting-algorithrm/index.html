@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Sorting algorithrm I | THIS IS YKANGLI</title><meta name="author" content="ykangli"><meta name="copyright" content="ykangli"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="排序算法冒泡排序​    冒泡排序是一种简单的交换类排序方法，它是通过对相邻数据元素进行交换，逐步将待排序序列变成有序序列的过程。 算法思想反复扫描待排序序列，再扫描的过程中顺次比较相邻两个元素的大小，逆序就交换位置。 以升序为例，在第一趟冒泡排序中，从第一个记录开始，扫描整个待排序序列，若相邻的两个元素逆序，则交换位置。 在扫描在过程中，不断地将两个相邻记录中关键字大的记录向后移动，最后必然将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sorting algorithrm I">
+<meta property="og:url" content="https://ykangli.top/2021/12/29/Sorting-algorithrm/index.html">
+<meta property="og:site_name" content="THIS IS YKANGLI">
+<meta property="og:description" content="排序算法冒泡排序​    冒泡排序是一种简单的交换类排序方法，它是通过对相邻数据元素进行交换，逐步将待排序序列变成有序序列的过程。 算法思想反复扫描待排序序列，再扫描的过程中顺次比较相邻两个元素的大小，逆序就交换位置。 以升序为例，在第一趟冒泡排序中，从第一个记录开始，扫描整个待排序序列，若相邻的两个元素逆序，则交换位置。 在扫描在过程中，不断地将两个相邻记录中关键字大的记录向后移动，最后必然将">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2021-12-29T04:25:53.000Z">
+<meta property="article:modified_time" content="2022-01-10T11:53:10.552Z">
+<meta property="article:author" content="ykangli">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ykangli.top/2021/12/29/Sorting-algorithrm/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Sorting algorithrm I',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-10 19:53:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">THIS IS YKANGLI</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Sorting algorithrm I</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-29T04:25:53.000Z" title="发表于 2021-12-29 12:25:53">2021-12-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-10T11:53:10.552Z" title="更新于 2022-01-10 19:53:10">2022-01-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/algorithm/">algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Sorting algorithrm I"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/sort.png" alt="sort"></p>
+<h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>​    冒泡排序是一种简单的交换类排序方法，它是通过对相邻数据元素进行交换，逐步将待排序序列变成有序序列的过程。</p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a><strong>算法思想</strong></h3><p>反复扫描待排序序列，再扫描的过程中顺次比较相邻两个元素的大小，逆序就交换位置。</p>
+<p>以升序为例，在第一趟冒泡排序中，从第一个记录开始，扫描整个待排序序列，若相邻的两个元素逆序，则交换位置。</p>
+<p>在扫描在过程中，不断地将两个相邻记录中关键字大的记录向后移动，最后<strong>必然将待排序列中最大的换到序列的末尾。</strong></p>
+<p>然后进行第二趟冒泡排序，对前n -1个元素进行同样的操作，其结果是使次大的元素被放在第 n - 1个位置上。</p>
+<p>然后进行第三趟冒泡排序，对前n - 2个元素进行同样的操作，其结果是使第三大的元素被放在第 n - 2个位置上。</p>
+<p>如此反复，知道剩下一个最小的元素。</p>
+<p>如果<strong>在某一趟冒泡排序过程中，没有发现一个逆序，说明已经有序，则可以直接结束整个排序</strong>。所以<strong>冒泡排序最多进行 n -1 趟</strong>。（只剩最后一个不用再进行排序，因为已经比它大的已经全在它的右边排好了，所以最多 n - 1趟）</p>
+<h3 id="动图演示："><a href="#动图演示：" class="headerlink" title="动图演示："></a>动图演示：</h3><p><img src="https://ykangliblog.oss-cn-beijing.aliyuncs.com/article/bubbleSort.gif" alt="bubbleSort"></p>
+<h3 id="最好情况"><a href="#最好情况" class="headerlink" title="最好情况"></a>最好情况</h3><p>当输入的数据已经是<strong>正序</strong>时（都已经是正序了，我还要你冒泡排序有何用啊）。</p>
+<h3 id="最坏情况"><a href="#最坏情况" class="headerlink" title="最坏情况"></a>最坏情况</h3><p>当输入的数据是<strong>逆序</strong>时（写一个 for 循环反序输出数据不就行了，干嘛要用你冒泡排序呢，我是闲的吗）。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> JZoffer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> ykangli</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021/12/29 12:55</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BubbleSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">2</span>, <span class="number">45</span>, <span class="number">34</span>, <span class="number">23</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">32</span>, <span class="number">98</span>, <span class="number">61</span>&#125;;</span><br><span class="line">        <span class="type">int</span>[] ints = <span class="keyword">new</span> <span class="title class_">BubbleSort</span>().bubbleSort(a);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> anInt : ints) &#123;</span><br><span class="line">            System.out.println(anInt);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] bubbleSort(<span class="type">int</span>[] sourceArray) &#123;</span><br><span class="line">        <span class="comment">//对 arr 进行拷贝，不改变原数组</span></span><br><span class="line">        <span class="type">int</span>[] arr = Arrays.copyOf(sourceArray, sourceArray.length);</span><br><span class="line">        <span class="comment">//最多排 n - 1趟</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="comment">//设置一个flag，当在一趟序列遍历中元素没有发生交换，则证明该序列已经有序，结束整个冒泡排序</span></span><br><span class="line">            <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[j] &gt; arr[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">                    arr[j] = arr[j + <span class="number">1</span>];</span><br><span class="line">                    arr[j + <span class="number">1</span>] = temp;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li><p>时间复杂度：O(N^2)</p>
+</li>
+<li><p>空间复杂度：O(1)</p>
+</li>
+<li><p>冒泡排序是<strong>稳定</strong>的排序</p>
+</li>
+</ul>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="算法改进要点"><a href="#算法改进要点" class="headerlink" title="算法改进要点"></a>算法改进要点</h3><p>冒泡排序在扫描过程中只对相邻两个元素进行比较，因此互换相邻元素只能消除一个逆序。如果能通过两个（不相邻）元素的交换，相处待排序序列中的多个逆序，则会大大加快排序的速度。</p>
+<p>快速排序中的一次交换可能消除多个逆序。</p>
+<h3 id="算法思想-1"><a href="#算法思想-1" class="headerlink" title="算法思想"></a>算法思想</h3><p>从待排序记录序列中选取一个元素（通常选取第一个元素）为<strong>枢轴</strong>，其关键字设为 pivot，然后将其余关键字小于 pivot的记录移到前面，而将关键字大于或等于 pivot的记录移到后面，结果将待排序记录序列分成两个子表，最后将关键字为 pivot的记录插到其分界线的位置处。将这个过程称为一趟快速排序。通过一次划分后，就以关键字为 pivot的记录来为界，将待排序序列分成了两个子表，且前面子表中所有记录的关键字均小于 pivot ，而后面子表中的所有记录的关键字均大于或等于pivot。对分割后的子表继续按上述原则进行分割，直到所有子表的表长不超过1为止，此时待排序记录序列就变成了一个有序表。</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>假设待划分序列为 r[ low ], r[ low +1 ], … r[ high ] 。首先将基准记录 r[ low ]移至<strong>变量 pivot</strong> 中．使 r [ low ］相当于空单元，然后反复进行如下两个扫描过程，<strong>直到 low 和 high 相遇</strong>。</p>
+<p>high 从右向左扫描，直到r [high] &lt; pivot时，将 r [ high］移至空单元元 r [ Iow ]处，此时 r[ high ]相当于空单元。<br>low 从左向右扫描，直到 r [low]  ≥ pivot时，将 r [ low ］移至空单元 r [ high ]，此时 r [l ow ］相当于空单元.<br>当 low 和 high 相遇时，r[ low ]或 r [ high ] 相当于空单元，且 r[ low ］<strong>左边所有记录的关键字均小于基准记录的关键字</strong>，而 r [ low ]<strong>右边所有记录的关键字均大于或等于基准记录的关键字</strong>。最后将基准记录移至r[ low ］中就完成一次划分过程。对于 r [ low ］左边的子表和   r [ low］右边的子表可采用同样的方法进行进一步划分。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">QuickSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] a = &#123;<span class="number">2</span>, <span class="number">45</span>, <span class="number">34</span>, <span class="number">23</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">32</span>, <span class="number">98</span>, <span class="number">61</span>&#125;;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">QuickSort</span>().quickSort(a, <span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i : a) &#123;</span><br><span class="line">            System.out.println(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] r, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="comment">//调用一趟快速排序算法，以枢纽pivot为界划分为两个子表</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> quickPass(r, low, high);</span><br><span class="line">            <span class="comment">//递归对左子表进行快速排序</span></span><br><span class="line">            quickSort(r, low, pivot - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//递归对右子表进行快速排序</span></span><br><span class="line">            quickSort(r, pivot + <span class="number">1</span>, high);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一趟快速排序算法，返回调整后基准数的位置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">quickPass</span><span class="params">(<span class="type">int</span>[] r, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">        <span class="comment">//选择第一个元素为基准数</span></span><br><span class="line">        <span class="comment">//有的书上是以中间的数作为基准数的，要实现这个方便非常方便，直接将中间的数和第一个数进行交换就可以了。</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> r[low];</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; r[high] &gt;= pivot) &#123;</span><br><span class="line">                high--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">                r[low] = r[high];</span><br><span class="line">                low++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; r[low] &lt; pivot) &#123;</span><br><span class="line">                low++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">                r[high] = r[low];</span><br><span class="line">                high--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        r[low] = pivot;</span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="最好情况-1"><a href="#最好情况-1" class="headerlink" title="最好情况"></a>最好情况</h3><p>每趟将序列一分两半，正好在表中间，将表分成两个大小相等的子表，为<code>O(NlogN)</code></p>
+<h3 id="最坏情况-1"><a href="#最坏情况-1" class="headerlink" title="最坏情况"></a>最坏情况</h3><p>已经排好序。</p>
+<p>第一趟经过n - 1 次比较，第一次记录定在原位置，左部子表为空表，右部子表为 n - 1 个记录，第二趟对第一趟排序后的右子表经过 n - 2 次比较，第二个记录定在原位置，左部子表为空表，右部子表为 n - 2个记录 …… 共需经过 n(n - 1) / 2次比较，所以时间复杂度<code>O(N^2)</code></p>
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><ul>
+<li>时间复杂度：*快速排序的最坏运行情况是 **O(n²)*<em>，比如说已排好序的数列。但它的平摊期望时间是 O(nlogn)，且 O(nlogn) 记号中隐含的常数因子很小，比复杂度稳定等于 O(nlogn) 的归并排序要小很多。所以，对绝大多数顺序性较弱的随机数列而言，快速排序总是优于归并排序。</em></li>
+<li>空间复杂度：快速排序递归算法的执行过程对应一颗二叉树，理想情况下是一颗完全二叉树。平均情况下空间复杂度<strong>O(logN)</strong></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ykangli</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://ykangli.top/2021/12/29/Sorting-algorithrm/">https://ykangli.top/2021/12/29/Sorting-algorithrm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://ykangli.top" target="_blank">THIS IS YKANGLI</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/08/Binary%20Search%20Algorithm%20and%20Related%20Topics/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Binary Search Algorithm and Related Topics</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/28/Sliding-Window/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Sliding Window</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ykangli</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">冒泡排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.1.</span> <span class="toc-text">算法思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E5%9B%BE%E6%BC%94%E7%A4%BA%EF%BC%9A"><span class="toc-number">1.1.2.</span> <span class="toc-text">动图演示：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E6%83%85%E5%86%B5"><span class="toc-number">1.1.3.</span> <span class="toc-text">最好情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5"><span class="toc-number">1.1.4.</span> <span class="toc-text">最坏情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.5.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.1.6.</span> <span class="toc-text">算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">1.2.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E8%A6%81%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">算法改进要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">算法思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.2.3.</span> <span class="toc-text">算法步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">1.2.4.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A5%BD%E6%83%85%E5%86%B5-1"><span class="toc-number">1.2.5.</span> <span class="toc-text">最好情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5-1"><span class="toc-number">1.2.6.</span> <span class="toc-text">最坏情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-1"><span class="toc-number">1.2.7.</span> <span class="toc-text">算法分析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多线程"/></a><div class="content"><a class="title" href="/2022/03/10/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程">多线程</a><time datetime="2022-03-10T02:47:57.000Z" title="发表于 2022-03-10 10:47:57">2022-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/09/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" title="滑动窗口"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="滑动窗口"/></a><div class="content"><a class="title" href="/2022/03/09/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" title="滑动窗口">滑动窗口</a><time datetime="2022-03-09T06:07:27.000Z" title="发表于 2022-03-09 14:07:27">2022-03-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/08/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" title="代码随想录-回溯算法"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="代码随想录-回溯算法"/></a><div class="content"><a class="title" href="/2022/03/08/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" title="代码随想录-回溯算法">代码随想录-回溯算法</a><time datetime="2022-03-08T13:29:02.000Z" title="发表于 2022-03-08 21:29:02">2022-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/08/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8F%8A%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/" title="类加载器及类加载过程"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="类加载器及类加载过程"/></a><div class="content"><a class="title" href="/2022/03/08/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8F%8A%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/" title="类加载器及类加载过程">类加载器及类加载过程</a><time datetime="2022-03-08T10:52:24.000Z" title="发表于 2022-03-08 18:52:24">2022-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/09/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="代码随想录-二叉树"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="代码随想录-二叉树"/></a><div class="content"><a class="title" href="/2022/02/09/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="代码随想录-二叉树">代码随想录-二叉树</a><time datetime="2022-02-09T08:04:59.000Z" title="发表于 2022-02-09 16:04:59">2022-02-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ykangli</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
